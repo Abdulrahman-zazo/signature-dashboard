@@ -1,35 +1,35 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import "./App.css";
+import { ChakraProvider, ProgressCircle } from "@chakra-ui/react";
+import { system } from "./Chakraui/Config";
+import { useAppDispatch, useAppSelector } from "./app/store";
+import { changeLangAction } from "./app/features/LanguageSlice";
+import Dashboard from "./Pages/Dashboard";
 
 function App() {
-  const [count, setCount] = useState(0)
+  console.log(useAppSelector((state) => state.user.username));
+  const dispatch = useAppDispatch();
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <ChakraProvider value={system}>
+        <div className="m-4   bg-text">
+          <button
+            className="m-2"
+            onClick={() => dispatch(changeLangAction("en"))}
+          >
+            English
+          </button>
+          <button
+            className="m-2"
+            onClick={() => dispatch(changeLangAction("ar"))}
+          >
+            العربية
+          </button>
+        </div>
+        <Dashboard />
+      </ChakraProvider>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
