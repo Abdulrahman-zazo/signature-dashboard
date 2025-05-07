@@ -1,33 +1,25 @@
 import "./App.css";
-import { ChakraProvider, ProgressCircle } from "@chakra-ui/react";
-import { system } from "./Chakraui/Config";
-import { useAppDispatch, useAppSelector } from "./app/store";
-import { changeLangAction } from "./app/features/LanguageSlice";
-import Dashboard from "./Pages/Dashboard";
+
+import { RouterProvider } from "react-router-dom";
+import { router } from "./Routes";
+import { configDesign } from "./Antd/Config";
+import { ConfigProvider } from "antd";
+import ar_EG from "antd/locale/ar_EG";
+import en_US from "antd/locale/en_US";
+import { useAppSelector } from "./app/store";
 
 function App() {
-  console.log(useAppSelector((state) => state.user.username));
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
+  const language = useAppSelector((state) => state.language);
 
   return (
     <>
-      <ChakraProvider value={system}>
-        <div className="m-4   bg-text">
-          <button
-            className="m-2"
-            onClick={() => dispatch(changeLangAction("en"))}
-          >
-            English
-          </button>
-          <button
-            className="m-2"
-            onClick={() => dispatch(changeLangAction("ar"))}
-          >
-            العربية
-          </button>
-        </div>
-        <Dashboard />
-      </ChakraProvider>
+      <ConfigProvider
+        theme={configDesign}
+        locale={language === "ar" ? ar_EG : en_US}
+      >
+        <RouterProvider router={router} />
+      </ConfigProvider>
     </>
   );
 }

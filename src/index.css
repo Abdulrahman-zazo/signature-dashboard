@@ -1,8 +1,10 @@
 @import "tailwindcss";
+@import "tailwindcss-animated";
 @theme {
   --font-display: "inter", "sans-serif";
   --breakpoint-3xl: 120rem;
   --color-text: rgba(25, 34, 82, 1);
+  --color-background: rgba(250, 250, 250, 1);
   --color-primary-500: rgba(74, 116, 234, 0.5);
   --color-primary: rgba(74, 116, 234, 1);
   --ease-fluid: cubic-bezier(0.3, 0, 0, 1);

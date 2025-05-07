@@ -1,12 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit";
-import userReduser from "./features/userSlice";
+import userReduser from "./features/User/userSlice";
 import langReducer from "./features/LanguageSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { userApi } from "./features/User/userApi";
 export const store = configureStore({
   reducer: {
     user: userReduser,
     language: langReducer,
+    [userApi.reducerPath]: userApi.reducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(userApi.middleware), // إضافة middleware
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
