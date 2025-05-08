@@ -1,10 +1,18 @@
-import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { login } from "../../../app/features/User/userSlice";
+import { Link } from "react-router-dom";
+
 import loginImage from "../../../assets/loginpage.png";
 import { Button, Form, Input } from "antd";
 
 import Logo from "../../../components/Ui/Logo";
+import { useLoginMutation } from "../../../app/features/User/userApi";
+import { useAppDispatch, useAppSelector } from "../../../app/store";
+import { loginAction } from "../../../app/features/User/userSlice";
+import {
+  decryptToken,
+  encryptToken,
+} from "../../../Cookies/CryptoServices/crypto";
+import { cookieService } from "../../../Cookies/CookiesServices";
+
 interface Iuser {
   email: string;
   password: string;
@@ -17,15 +25,22 @@ export const LoginPage = () => {
     email: "",
     password: "",
   };
-  // const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   // const navigate = useNavigate();
-
-  const onFinish = (values: Iuser) => {
-    console.log("Received values of form: ", values);
-
-    // dispatch(login());
+  const [login] = useLoginMutation();
+  // { isLoading, isError, data, error }
+  const onFinish = async (values: Iuser) => {
+    const res = await login(values);
+    console.log(res.data.user.token);
+    encryptToken(res.data.user.token);
+    dispatch(loginAction({ ...res.data.user }));
     // navigate("/dashboard");
   };
+  const token = cookieService.get("auth_token");
+  console.log(token);
+
+  const detoken = decryptToken(`${token}`);
+  console.log(detoken);
 
   return (
     <div className="flex justify-between  max-[800px]:justify-center m-auto h-[100vh]">

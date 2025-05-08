@@ -1,6 +1,5 @@
-import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { login } from "../../../app/features/User/userSlice";
+import { Link } from "react-router-dom";
+
 import forgetpage from "../../../assets/forgetpage.png";
 import { Button, Form, Input } from "antd";
 
@@ -17,9 +16,6 @@ const ForgetPassword = () => {
 
   const onFinish = (values: IProps) => {
     console.log("Received values of form: ", values);
-
-    // dispatch(login());
-    // navigate("/dashboard");
   };
   return (
     <div className="flex justify-between  max-[800px]:justify-center m-auto h-[100vh]">
