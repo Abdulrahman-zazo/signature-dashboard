@@ -1,8 +1,9 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { useAppSelector } from "../app/store";
+
+import { cookieService } from "../Cookies/CookiesServices";
 
 export const AuthRoute = () => {
-  const isAuthenticated = useAppSelector((state) => state.user.isAuthenticated);
+  const token = cookieService.get("auth_token");
 
-  return isAuthenticated ? <Navigate to="/" replace /> : <Outlet />;
+  return token ? <Navigate to="/" replace /> : <Outlet />;
 };

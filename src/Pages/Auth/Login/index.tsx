@@ -1,17 +1,14 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import loginImage from "../../../assets/loginpage.png";
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, message } from "antd";
 
 import Logo from "../../../components/Ui/Logo";
 import { useLoginMutation } from "../../../app/features/User/userApi";
-import { useAppDispatch, useAppSelector } from "../../../app/store";
+import { useAppDispatch } from "../../../app/store";
 import { loginAction } from "../../../app/features/User/userSlice";
-import {
-  decryptToken,
-  encryptToken,
-} from "../../../Cookies/CryptoServices/crypto";
-import { cookieService } from "../../../Cookies/CookiesServices";
+import { encryptToken } from "../../../Cookies/CryptoServices/crypto";
+import { showMessage } from "../../../components/Message/Message";
 
 interface Iuser {
   email: string;
@@ -19,6 +16,7 @@ interface Iuser {
 }
 
 export const LoginPage = () => {
+  const [messageApi, contextHolder] = message.useMessage();
   const date = new Date();
 
   const initialValues: Iuser = {
@@ -26,38 +24,50 @@ export const LoginPage = () => {
     password: "",
   };
   const dispatch = useAppDispatch();
-  // const navigate = useNavigate();
-  const [login] = useLoginMutation();
-  // { isLoading, isError, data, error }
-  const onFinish = async (values: Iuser) => {
-    const res = await login(values);
-    console.log(res.data.user.token);
-    encryptToken(res.data.user.token);
-    dispatch(loginAction({ ...res.data.user }));
-    // navigate("/dashboard");
-  };
-  const token = cookieService.get("auth_token");
-  console.log(token);
+  const navigate = useNavigate();
+  const [login, { data }] = useLoginMutation();
 
-  const detoken = decryptToken(`${token}`);
-  console.log(detoken);
+  const onFinish = async (values: Iuser) => {
+    try {
+      showMessage(messageApi, "loading", "جاري تسجيل الدخول...");
+      const res = await login(values);
+      if (res.data.status === true) {
+        encryptToken(data.user.token);
+        dispatch(loginAction({ ...data.user }));
+        showMessage(messageApi, "success", "تم التسجيل بنجاح!", 1);
+        setTimeout(() => navigate("/dashboard"), 1000);
+      } else {
+        showMessage(messageApi, "error", res.data?.msg);
+      }
+    } catch (err) {
+      const error = err as { data?: { msg?: string } };
+      showMessage(
+        messageApi,
+        "error",
+        error.data?.msg || "حدث خطأ أثناء التسجيل"
+      );
+    }
+  };
 
   return (
-    <div className="flex justify-between  max-[800px]:justify-center m-auto h-[100vh]">
-      <div className="w-1/2 p-4 h-full bg-background max-[800px]:hidden animate-fade-down">
-        <div className=" flex flex-col  justify-center px-8 py-10 ">
-          <img src={loginImage} alt="Login" className="w-[450px]" />
-          <h1 className="  my-2 text-text font-bold text-lg md:text-xl xl:text-3xl">
-            Find your sweet home
-          </h1>
-          <p className="  text-gray-600 text-sm md:text-base xl:text-lg">
-            Schedule visit in just a few clicks visits in just a few clicks
-          </p>
+    <div className="flex justify-between items-center  max-[800px]:justify-center m-auto h-[100vh]">
+      {contextHolder}
+      <div className="w-1/2 flex flex-col  justify-center   my-4 h-full bg-background max-[800px]:hidden animate-fade-down inset-shadow-sm">
+        <div className="  mx-8 my-4 ">
+          <img src={loginImage} alt="Login" className="w-[90%] 2xl:w-[100%]" />
+          <div>
+            <h1 className="  my-2 text-text font-bold text-lg md:text-xl xl:text-3xl">
+              Find your sweet home
+            </h1>
+            <p className="  text-gray-600 text-sm md:text-base xl:text-lg">
+              Schedule visit in just a few clicks visits in just a few clicks
+            </p>
+          </div>
         </div>
       </div>
 
       {/* form side */}
-      <div className="w-2/3  max-[800px]:w-full flex flex-col justify-center items-center  ">
+      <div className="  w-2/3 h-full  max-[800px]:w-full flex flex-col justify-center items-center   ">
         <div className="w-2/3  ">
           <div className="max-[800px]:text-center  ">
             <div className="mb-8  max-[800px]:hidden ">

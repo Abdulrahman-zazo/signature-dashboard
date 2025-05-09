@@ -34,8 +34,8 @@ class CookiesService {
   // }
 
   // Remove cookie
-  remove(name: string, path?: string): void {
-    cookies.remove(name, { path: path || "/" });
+  remove(name: string): void {
+    cookies.remove(name);
   }
 }
 

@@ -10,6 +10,7 @@ interface IProps {
 }
 
 const ForgetPassword = () => {
+  const date = new Date();
   const initialValues: IProps = {
     email: "",
   };
@@ -18,15 +19,18 @@ const ForgetPassword = () => {
     console.log("Received values of form: ", values);
   };
   return (
-    <div className="flex justify-between  max-[800px]:justify-center m-auto h-[100vh]">
-      <div className="w-1/2 p-4 h-full bg-background max-[800px]:hidden animate-fade-down">
-        <div className=" flex flex-col  justify-center px-8 py-10 ">
-          <img src={forgetpage} alt="Login" className="w-[450px]" />
+    <div className="flex justify-between items-center  max-[800px]:justify-center m-auto h-[100vh]">
+      <div className="w-1/2 flex flex-col  justify-center  my-4 h-full bg-background max-[800px]:hidden animate-fade-down inset-shadow-sm">
+        <div className="  mx-8 my-4 ">
+          <img src={forgetpage} alt="Login" className="w-[90%] 2xl:w-[100%]" />
 
-          <p className="  text-gray-600 text-[14px] my-2 md:text-base xl:text-lg">
+          <p className="  text-gray-500 text-[14px] my-2 w-[70%]  ">
             Enter the email address associated with your account and we'll send
             you a secure link to reset your password.
           </p>
+          <span className="text-neutral-400 font-light text-[12px]">
+            © {date.getFullYear()} Signature Company. All Rights Reserved.
+          </span>
         </div>
       </div>
 
@@ -43,7 +47,7 @@ const ForgetPassword = () => {
             <h1 className="text-text font-bold text-lg md:text-xl xl:text-3xl mb-2 ">
               Reset Password
             </h1>
-            <p className="text-gray-600 text-sm md:text-base xl:text-lg mb-4 ">
+            <p className=" text-gray-600 text-sm md:text-base xl:text-lg mb-4 ">
               Enter your email account to rest your password
             </p>
           </div>
