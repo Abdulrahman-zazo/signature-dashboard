@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 
 import loginImage from "../../../assets/loginpage.png";
-import { Button, Form, Input, message } from "antd";
+import { Button, Form, Input, message, Spin } from "antd";
 
 import Logo from "../../../components/Ui/Logo";
 import { useLoginMutation } from "../../../app/features/User/userApi";
@@ -9,7 +9,7 @@ import { useAppDispatch } from "../../../app/store";
 import { loginAction } from "../../../app/features/User/userSlice";
 import { encryptToken } from "../../../Cookies/CryptoServices/crypto";
 import { showMessage } from "../../../components/Message/Message";
-
+import { LoadingOutlined } from "@ant-design/icons";
 interface Iuser {
   email: string;
   password: string;
@@ -23,29 +23,47 @@ export const LoginPage = () => {
     email: "",
     password: "",
   };
-  const dispatch = useAppDispatch();
+
   const navigate = useNavigate();
-  const [login, { data }] = useLoginMutation();
+  const [login, { data, isLoading }] = useLoginMutation();
 
   const onFinish = async (values: Iuser) => {
     try {
-      showMessage(messageApi, "loading", "جاري تسجيل الدخول...");
-      const res = await login(values);
-      if (res.data.status === true) {
+      setTimeout(
+        () =>
+          showMessage({
+            messageApi,
+            type: "loading",
+            content: "جاري تسجيل الدخول...",
+            duration: 4,
+          }),
+        1000
+      );
+
+      const result = await login(values);
+      if (result.data.status === true) {
+        showMessage({
+          messageApi,
+          type: "success",
+          content: "تم التسجيل بنجاح!",
+        });
         encryptToken(data.user.token);
-        dispatch(loginAction({ ...data.user }));
-        showMessage(messageApi, "success", "تم التسجيل بنجاح!", 1);
+
         setTimeout(() => navigate("/dashboard"), 1000);
       } else {
-        showMessage(messageApi, "error", res.data?.msg);
+        showMessage({
+          messageApi,
+          type: "error",
+          content: result.data?.msg,
+        });
       }
     } catch (err) {
       const error = err as { data?: { msg?: string } };
-      showMessage(
+      showMessage({
         messageApi,
-        "error",
-        error.data?.msg || "حدث خطأ أثناء التسجيل"
-      );
+        type: "error",
+        content: error.data?.msg || "حدث خطأ أثناء التسجيل",
+      });
     }
   };
 
@@ -117,8 +135,17 @@ export const LoginPage = () => {
             </Form.Item>
 
             <Form.Item>
-              <Button block type="primary" htmlType="submit">
-                Log in
+              <Button
+                block
+                type="primary"
+                htmlType="submit"
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <Spin size="default" indicator={<LoadingOutlined spin />} />
+                ) : (
+                  "Login"
+                )}
               </Button>
             </Form.Item>
           </Form>

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import i18n from "../../i18";
+import i18n from "../../../i18";
 
 export const languageSlice = createSlice({
   name: "language",

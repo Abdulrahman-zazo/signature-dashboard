@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReduser from "./features/User/userSlice";
-import langReducer from "./features/LanguageSlice";
+import uiReduser from "./features/uiSlice/uiSlice";
+import langReducer from "./features/Language/LanguageSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { userApi } from "./features/User/userApi";
 export const store = configureStore({
   reducer: {
     user: userReduser,
+    uiSlice: uiReduser,
     language: langReducer,
     [userApi.reducerPath]: userApi.reducer,
   },

@@ -23,7 +23,23 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     loginAction: (state, action: PayloadAction<AuthState>) => {
-      return { ...state, ...action.payload };
+      const {
+        email,
+        first_name,
+        last_name,
+        phone_number,
+        image_url,
+        permissions,
+      } = action.payload;
+      return {
+        ...state,
+        email,
+        first_name,
+        last_name,
+        image_url,
+        permissions,
+        phone_number,
+      };
     },
     logoutAction: () => {
       return initialState;
