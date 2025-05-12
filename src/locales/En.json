@@ -1,5 +1,21 @@
 {
-    "translation": {
-      "Welcome": "hello world"
+  "translation": {
+    "Welcome": "hello ",
+    "SideBar": {
+      "Dashboard": "Dashboard",
+      "Order": "Order",
+      "Countries": "Countries",
+      "Cities": "Cities",
+      "Regions": "Regions",
+      "Complaints": "Complaints",
+      "All_Users": "All Users",
+      "Users": "Users",
+      "Admin": "Admin",
+      "Services": "Services",
+      "Proviedors": "Proviedors",
+      "Proviedors_Orders": "Proviedor Orders",
+      "Categories": "Categories",
+      "Settings": "Settings"
     }
   }
+}

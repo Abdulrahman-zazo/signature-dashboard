@@ -6,8 +6,8 @@ import En from "./locales/En.json";
 // تهيئة i18n
 i18n.use(initReactI18next).init({
   resources: {
-    en: En,
-    ar: Ar,
+    en: { ...En },
+    ar: { ...Ar },
   },
   lng: "en", // اللغة الافتراضية
   fallbackLng: "en",

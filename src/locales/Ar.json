@@ -1,5 +1,21 @@
 {
-    "translation": {
-      "Welcome": "hello "
+  "translation": {
+    "Welcome": "hello ",
+    "SideBar": {
+      "Dashboard": "لوحة التحكم",
+      "Order": "Dashboard",
+      "Countries": "Countries",
+      "Cities": "Cities",
+      "Regions": "Regions",
+      "Complaints": "Complaints",
+      "All_Users": "All Users",
+      "Users": "Users",
+      "Admin": "Admin",
+      "Services": "Services",
+      "Proviedors": "Proviedors",
+      "Proviedors_Orders": "Proviedors Orders",
+      "Categories": "Categories",
+      "Settings": "Settings"
     }
   }
+}

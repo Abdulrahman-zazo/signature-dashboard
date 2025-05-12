@@ -36,10 +36,10 @@ const Dashboard = () => {
             {collapsed ? (
               <Logo type="icon" width={30} />
             ) : (
-              <Logo type="h" width={125} />
+              <Logo type="sidebar" width={125} />
             )}
           </div>
-          <Menu defaultSelectedKeys={["1"]} mode="inline" items={items} />
+          <Menu mode="inline" items={items} />
         </Sider>
         <Layout>
           <HeaderDashbord />
@@ -56,9 +56,6 @@ const Dashboard = () => {
               <Outlet />
             </div>
           </Content>
-          {/* <Footer style={{ textAlign: "center" }}>
-            Ant Design ©{new Date().getFullYear()} Created by Ant UED
-          </Footer> */}
         </Layout>
       </Layout>
     </>

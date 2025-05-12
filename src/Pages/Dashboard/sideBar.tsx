@@ -1,11 +1,15 @@
-import {
-  DesktopOutlined,
-  FileOutlined,
-  PieChartOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
 import type { MenuProps } from "antd/lib";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import {
+  HousePlus,
+  LayoutDashboard,
+  MapPin,
+  MessageCircleQuestion,
+  Settings,
+  Users,
+} from "lucide-react";
+import { GrBusinessService } from "react-icons/gr";
+import TranslateText from "../../components/Translate";
 
 type MenuItem = Required<MenuProps>["items"][number];
 function getItem(
@@ -24,72 +28,100 @@ function getItem(
 
 export const items: MenuItem[] = [
   getItem(
-    <Link to="/" rel="noopener noreferrer">
-      Dashboard
-    </Link>,
+    <NavLink to="/">
+      <TranslateText text="SideBar.Dashboard" />
+    </NavLink>,
     "1",
-    <PieChartOutlined />
+    <LayoutDashboard size={16} />
   ),
   getItem(
-    <Link to="/order" rel="noopener noreferrer">
-      Order
-    </Link>,
+    <NavLink to="/order">
+      <TranslateText text="SideBar.Order" />
+    </NavLink>,
     "2",
-    <DesktopOutlined />
+    <HousePlus size={16} />
   ),
 
-  getItem("Address", "sub1", <UserOutlined />, [
+  getItem("Address", "sub1", <MapPin size={16} />, [
     getItem(
-      <Link to="/countries" rel="noopener noreferrer">
-        Countries
-      </Link>,
+      <NavLink to="/countries">
+        <TranslateText text="SideBar.Countries" />
+      </NavLink>,
       "sub1-3"
     ),
     getItem(
-      <Link to="/cities" rel="noopener noreferrer">
-        Cities
-      </Link>,
+      <NavLink to="/cities">
+        <TranslateText text="SideBar.Cities" />
+      </NavLink>,
       "sub1-4"
     ),
     getItem(
-      <Link to="/regions" rel="noopener noreferrer">
-        Regions
-      </Link>,
+      <NavLink to="/regions">
+        <TranslateText text="SideBar.Regions" />
+      </NavLink>,
       "sub1-5"
     ),
   ]),
   getItem(
-    <Link to="/complaints" rel="noopener noreferrer">
-      Complaints
-    </Link>,
+    <NavLink to="/complaints">
+      <TranslateText text="SideBar.Complaints" />
+    </NavLink>,
     "9",
-    <FileOutlined />
+    <MessageCircleQuestion size={16} />
   ),
   getItem(
-    <Link to="/users" rel="noopener noreferrer">
-      All Users
-    </Link>,
+    <>
+      <TranslateText text="SideBar.All_Users" />
+    </>,
     "10",
-    <FileOutlined />,
-    [getItem("Admins", "6"), getItem("Users", "8")]
-  ),
-  getItem(
-    <Link to="/services" rel="noopener noreferrer">
-      Services
-    </Link>,
-    "11",
-    <FileOutlined />,
+    <Users size={16} />,
     [
-      getItem("Proviedors", "11-6"),
-      getItem("Categories", "11-7"),
-      getItem("Services Orders", "11-8"),
+      getItem(
+        <NavLink to="/users">
+          <TranslateText text="SideBar.Admin" />
+        </NavLink>,
+        "6"
+      ),
+      getItem(
+        <NavLink to="/admin">
+          <TranslateText text="SideBar.Users" />
+        </NavLink>,
+        "8"
+      ),
     ]
   ),
   getItem(
-    <Link to="/settings" rel="noopener noreferrer">
-      Settings
-    </Link>,
+    <>
+      <TranslateText text="SideBar.Services" />
+    </>,
+    "11",
+    <GrBusinessService size={16} />,
+    [
+      getItem(
+        <NavLink to="/proviedors">
+          <TranslateText text="SideBar.Proviedors" />
+        </NavLink>,
+        "11-6"
+      ),
+      getItem(
+        <NavLink to="/categories">
+          <TranslateText text="SideBar.Categories" />
+        </NavLink>,
+        "11-7"
+      ),
+      getItem(
+        <NavLink to="/Proviedors-Orders-services">
+          <TranslateText text="SideBar.Proviedors_Orders" />
+        </NavLink>,
+        "11-8"
+      ),
+    ]
+  ),
+  getItem(
+    <NavLink to="/settings">
+      <TranslateText text="SideBar.Settings" />
+    </NavLink>,
     "12",
-    <FileOutlined />
+    <Settings size={16} />
   ),
 ];
