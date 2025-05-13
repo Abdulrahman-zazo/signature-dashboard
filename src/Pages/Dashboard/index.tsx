@@ -8,17 +8,7 @@ import { useAppSelector } from "../../app/store";
 import HeaderDashbord from "../../components/Header";
 import { Outlet } from "react-router-dom";
 import { items } from "./sideBar";
-
-const siderStyle: React.CSSProperties = {
-  // overflow: "auto",
-  // height: "100vh",
-  // position: "sticky",
-  // insetInlineStart: 0,
-  // top: 0,
-  // bottom: 0,
-  // scrollbarWidth: "thin",
-  // scrollbarGutter: "stable",
-};
+import { siderStyle } from "../../components/ExtraStyles";
 
 const Dashboard = () => {
   const { collapsed } = useAppSelector((state) => state.uiSlice);
@@ -28,7 +18,11 @@ const Dashboard = () => {
       <Layout style={{ minHeight: "100vh" }}>
         <Sider
           trigger={null}
-          style={{ padding: 0, background: "#fff", ...siderStyle }}
+          style={{
+            padding: 0,
+            background: "#fff",
+            ...siderStyle,
+          }}
           collapsible
           collapsed={collapsed}
         >
@@ -36,7 +30,7 @@ const Dashboard = () => {
             {collapsed ? (
               <Logo type="icon" width={30} />
             ) : (
-              <Logo type="sidebar" width={125} />
+              <Logo type="sidebar" width={120} />
             )}
           </div>
           <Menu mode="inline" items={items} />

@@ -89,10 +89,10 @@ export const DELETE_PACKAGE = "ad-package/dashboard/package/delete";
 
 /* --------------------AD------------------*/
 
-export const GET_AD = "ad-package/dashboard/package/ad/all";
-export const ADD_AD = "ad-package/dashboard/package/ad/add";
-export const UPDATE_AD = "ad-package/dashboard/package/ad/edit";
-export const DELETE_AD = "ad-package/dashboard/package/ad/delete";
+export const GET_AD = "ad-package/dashboard/ad/all";
+export const ADD_AD = "ad-package/dashboard/ad/add";
+export const UPDATE_AD = "ad-package/dashboard/ad/edit";
+export const DELETE_AD = "ad-package/dashboard/ad/delete";
 export const CHANGE_STATUS_AD = "ad-package/dashboard/ad/change-status";
 
 /* --------------------Features------------------*/

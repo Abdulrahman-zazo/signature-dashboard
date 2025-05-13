@@ -7,7 +7,7 @@ interface Iuserdata {
   password: string;
 }
 export const userApi = createApi({
-  reducerPath: "auth",
+  reducerPath: "authApi",
   tagTypes: ["auth"],
   baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_BASE_URL }),
   endpoints: (builder) => ({

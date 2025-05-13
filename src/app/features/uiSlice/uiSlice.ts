@@ -1,11 +1,13 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
-interface AuthState {
+interface UiState {
   collapsed: boolean;
+  DisplayDataAsCard: string;
 }
 
-const initialState: AuthState = {
+const initialState: UiState = {
   collapsed: false,
+  DisplayDataAsCard: "card",
 };
 
 const uiSlice = createSlice({
@@ -15,8 +17,11 @@ const uiSlice = createSlice({
     collapsedAction: (state) => {
       state.collapsed = !state.collapsed;
     },
+    setDisplayDataAsCard: (state, action: PayloadAction<string>) => {
+      state.DisplayDataAsCard = action.payload;
+    },
   },
 });
 
-export const { collapsedAction } = uiSlice.actions;
+export const { collapsedAction, setDisplayDataAsCard } = uiSlice.actions;
 export default uiSlice.reducer;

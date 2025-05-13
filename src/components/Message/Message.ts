@@ -13,5 +13,5 @@ export const showMessage = ({
   duration = 2,
 }: IMessage) => {
   messageApi.destroy();
-  messageApi[type]({ content, duration });
+  return messageApi[type]({ content, duration });
 };

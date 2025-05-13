@@ -20,3 +20,38 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+:where(.css-dev-only-do-not-override-vxenvr).ant-skeleton.ant-skeleton-element {
+  width: 100%;
+}
+:where(
+    .css-dev-only-do-not-override-vxenvr
+  ).ant-menu-light.ant-menu-root.ant-menu-inline,
+:where(.css-dev-only-do-not-override-vxenvr).ant-menu-light
+  > .ant-menu.ant-menu-root.ant-menu-inline,
+:where(
+    .css-dev-only-do-not-override-vxenvr
+  ).ant-menu-light.ant-menu-root.ant-menu-vertical,
+:where(.css-dev-only-do-not-override-vxenvr).ant-menu-light
+  > .ant-menu.ant-menu-root.ant-menu-vertical {
+  border-inline-end: none;
+}
+.scrollbar::-webkit-scrollbar {
+  width: 0px;
+}
+
+.scrollbar::-webkit-scrollbar-track {
+  background: #ffffff;
+  border-radius: 0px;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+  background: #dddddd;
+  border-radius: 0px;
+  border: 1px solid #f1f1f1;
+}
+
+/* Estilos para Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #dddddd #ffffff;
+}

@@ -1,12 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
-
 import loginImage from "../../../assets/loginpage.png";
 import { Button, Form, Input, message, Spin } from "antd";
-
 import Logo from "../../../components/Ui/Logo";
 import { useLoginMutation } from "../../../app/features/User/userApi";
-import { useAppDispatch } from "../../../app/store";
-import { loginAction } from "../../../app/features/User/userSlice";
 import { encryptToken } from "../../../Cookies/CryptoServices/crypto";
 import { showMessage } from "../../../components/Message/Message";
 import { LoadingOutlined } from "@ant-design/icons";
@@ -25,36 +21,35 @@ export const LoginPage = () => {
   };
 
   const navigate = useNavigate();
-  const [login, { data, isLoading }] = useLoginMutation();
+  const [login, { isLoading }] = useLoginMutation();
 
   const onFinish = async (values: Iuser) => {
     try {
-      setTimeout(
-        () =>
-          showMessage({
-            messageApi,
-            type: "loading",
-            content: "جاري تسجيل الدخول...",
-            duration: 4,
-          }),
-        1000
-      );
+      showMessage({
+        messageApi,
+        type: "loading",
+        content: "جاري تسجيل الدخول...",
+        duration: 4,
+      });
 
       const result = await login(values);
-      if (result.data.status === true) {
+
+      if ("data" in result && result.data.status === true) {
         showMessage({
           messageApi,
           type: "success",
           content: "تم التسجيل بنجاح!",
         });
-        encryptToken(data.user.token);
+
+        // ✅ استخدام result.data.user
+        encryptToken(result.data.user.token);
 
         setTimeout(() => navigate("/dashboard"), 1000);
       } else {
         showMessage({
           messageApi,
           type: "error",
-          content: result.data?.msg,
+          content: result.data?.msg || "فشل في تسجيل الدخول",
         });
       }
     } catch (err) {
@@ -62,11 +57,10 @@ export const LoginPage = () => {
       showMessage({
         messageApi,
         type: "error",
-        content: error.data?.msg || "حدث خطأ أثناء التسجيل",
+        content: error.data?.msg || "حدث خطأ أثناء الاتصال بالخادم",
       });
     }
   };
-
   return (
     <div className="flex justify-between items-center  max-[800px]:justify-center m-auto h-[100vh]">
       {contextHolder}
