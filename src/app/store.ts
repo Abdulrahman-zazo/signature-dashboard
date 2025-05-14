@@ -5,6 +5,7 @@ import langReducer from "./features/Language/LanguageSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { userApi } from "./features/User/userApi";
 import { adsApi } from "./features/Ads/adsApi";
+import { countriesApi } from "./features/address/countries/countriesApi";
 export const store = configureStore({
   reducer: {
     user: userReduser,
@@ -12,9 +13,14 @@ export const store = configureStore({
     language: langReducer,
     [userApi.reducerPath]: userApi.reducer,
     [adsApi.reducerPath]: adsApi.reducer,
+    [countriesApi.reducerPath]: countriesApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(userApi.middleware, adsApi.middleware), // إضافة middleware
+    getDefaultMiddleware().concat(
+      userApi.middleware,
+      adsApi.middleware,
+      countriesApi.middleware
+    ), // إضافة middleware
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

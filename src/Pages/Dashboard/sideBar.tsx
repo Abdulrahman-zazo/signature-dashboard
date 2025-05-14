@@ -42,26 +42,13 @@ export const items: MenuItem[] = [
     <HousePlus size={16} />
   ),
 
-  getItem("Address", "sub1", <MapPin size={16} />, [
-    getItem(
-      <NavLink to="/countries">
-        <TranslateText text="SideBar.Countries" />
-      </NavLink>,
-      "sub1-3"
-    ),
-    getItem(
-      <NavLink to="/cities">
-        <TranslateText text="SideBar.Cities" />
-      </NavLink>,
-      "sub1-4"
-    ),
-    getItem(
-      <NavLink to="/regions">
-        <TranslateText text="SideBar.Regions" />
-      </NavLink>,
-      "sub1-5"
-    ),
-  ]),
+  getItem(
+    <NavLink to="/address">
+      <TranslateText text="SideBar.Address" />
+    </NavLink>,
+    "sub1",
+    <MapPin size={16} />
+  ),
   getItem(
     <NavLink to="/complaints">
       <TranslateText text="SideBar.Complaints" />

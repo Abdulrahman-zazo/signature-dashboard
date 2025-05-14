@@ -4,6 +4,7 @@
     "SideBar": {
       "Dashboard": "Dashboard",
       "Order": "Order",
+      "Address": "Address",
       "Countries": "Countries",
       "Cities": "Cities",
       "Regions": "Regions",
