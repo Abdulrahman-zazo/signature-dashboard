@@ -33,7 +33,7 @@ export const countriesApi = createApi({
           Authorization: `Bearer ${decryptToken(token)}`,
         },
       }),
-      invalidatesTags: [{ type: "Countries", id: "LIST" }],
+      invalidatesTags: ["Countries"],
     }),
     editCountries: builder.mutation({
       query: ({ name, token, id }: ICountries) => ({
@@ -41,26 +41,28 @@ export const countriesApi = createApi({
         method: "POST",
         body: {
           country_name: name,
-          id: id,
+          country_id: `${id}`,
         },
         headers: {
           Authorization: `Bearer ${decryptToken(token)}`,
         },
       }),
-      invalidatesTags: (_res, _err, { id }) => [{ type: "Countries", id }],
+      invalidatesTags: (result) =>
+        result ? [{ type: "Countries", id: result.id }] : ["Countries"],
     }),
     deleteCountries: builder.mutation({
       query: ({ token, id }: ICountries) => ({
         url: DELETE_COUNTRIES,
         method: "POST",
         body: {
-          id: id,
+          country_id: `${id}`,
         },
         headers: {
           Authorization: `Bearer ${decryptToken(token)}`,
         },
       }),
-      invalidatesTags: (_res, _err, { id }) => [{ type: "Countries", id }],
+      invalidatesTags: (result) =>
+        result ? [{ type: "Countries", id: result.id }] : ["Countries"],
     }),
   }),
 });
@@ -71,36 +73,3 @@ export const {
   useEditCountriesMutation,
   useDeleteCountriesMutation,
 } = countriesApi;
-// tagTypes: ['Posts'],
-
-// getPosts: builder.query({
-//   query: () => '/posts',
-//   providesTags: (result = []) =>
-//     result.map(({ id }) => ({ type: 'Posts' as const, id })).concat({ type: 'Posts', id: 'LIST' }),
-// }),
-
-// addPost: builder.mutation({
-//   query: (newPost) => ({
-//     url: '/posts',
-//     method: 'POST',
-//     body: newPost,
-//   }),
-//   invalidatesTags: [{ type: 'Posts', id: 'LIST' }],
-// }),
-
-// updatePost: builder.mutation({
-//   query: ({ id, ...patch }) => ({
-//     url: `/posts/${id}`,
-//     method: 'PATCH',
-//     body: patch,
-//   }),
-//   invalidatesTags: (_res, _err, { id }) => [{ type: 'Posts', id }],
-// }),
-
-// deletePost: builder.mutation({
-//   query: (id) => ({
-//     url: `/posts/${id}`,
-//     method: 'DELETE',
-//   }),
-//   invalidatesTags: (_res, _err, id) => [{ type: 'Posts', id }, { type: 'Posts', id: 'LIST' }],
-// }),

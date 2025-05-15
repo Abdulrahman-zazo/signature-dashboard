@@ -1,7 +1,8 @@
 import { Tabs, type TabsProps } from "antd";
 import CountriesTable from "./Countries/CountriesPage";
-import CitiesPage from "./Cities/CitiesPage";
+
 import RegionsPage from "./Regions/RegionsPage";
+import CitiesTable from "./Cities/CitiesPage";
 
 const items: TabsProps["items"] = [
   {
@@ -12,7 +13,7 @@ const items: TabsProps["items"] = [
   {
     key: "2",
     label: "Cities",
-    children: <CitiesPage />,
+    children: <CitiesTable />,
   },
   {
     key: "3",

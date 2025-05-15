@@ -3,16 +3,17 @@ import { EditableProTable } from "@ant-design/pro-components";
 import { useState } from "react";
 import {
   useAddCountriesMutation,
+  useDeleteCountriesMutation,
   useEditCountriesMutation,
   useGetAllCountriesQuery,
 } from "../../../../app/features/address/countries/countriesApi";
 import { cookieService } from "../../../../Cookies/CookiesServices";
 import { showMessage } from "../../../../components/Message/Message";
-import { message } from "antd";
-
+import { Button, message, Popconfirm } from "antd";
+import { QuestionCircleOutlined } from "@ant-design/icons";
 type DataSourceType = {
-  id?: string | number; // Explicitly define id as string or number
-  name: string;
+  id: number; // Explicitly define id as string or number
+  name?: string;
 };
 
 const CountriesTable = () => {
@@ -21,9 +22,12 @@ const CountriesTable = () => {
   const [isEdit, setisEdit] = useState<boolean>(false);
 
   const [messageApi, contextHolder] = message.useMessage();
-  const { data, isLoading } = useGetAllCountriesQuery({});
+  const { data: countries, isLoading } = useGetAllCountriesQuery({
+    refetchOnMountOrArgChange: true,
+  });
   const [addCountries] = useAddCountriesMutation();
   const [editCountries] = useEditCountriesMutation();
+  const [deleteCountries] = useDeleteCountriesMutation();
 
   const columns: ProColumns<DataSourceType>[] = [
     {
@@ -31,17 +35,13 @@ const CountriesTable = () => {
       dataIndex: "name",
       tooltip:
         "These are the countries that appear to users and merchants when adding something and selecting the address.",
-      fieldProps: (form, { rowKey, rowIndex }) => {
-        if (form.getFieldValue([rowKey || "", "country_name"]) === "Not fun") {
+      fieldProps: (form, { rowKey }) => {
+        if (form.getFieldValue([rowKey || "", "name"]) === "Not fun") {
           return {
             disabled: true,
           };
         }
-        if (rowIndex > 9) {
-          return {
-            disabled: true,
-          };
-        }
+
         return {};
       },
     },
@@ -66,9 +66,9 @@ const CountriesTable = () => {
     {
       title: "Actions",
       valueType: "option",
-      width: 200,
-      render: (text, record, _, action) => [
-        <a
+      width: 300,
+      render: (row, record, _, action) => [
+        <Button
           key="editable"
           onClick={() => {
             setisEdit(!isEdit);
@@ -76,15 +76,21 @@ const CountriesTable = () => {
           }}
         >
           Edit
-        </a>,
-        <a
-          key="delete"
-          onClick={() => {
-            console.log(record.id);
-          }}
+        </Button>,
+        <Popconfirm
+          title="Delete the Country"
+          description="Are you sure to delete this Country?"
+          icon={<QuestionCircleOutlined style={{ color: "red" }} />}
+          onConfirm={() =>
+            deleteCountries({
+              name: `${record.name}`,
+              id: record.id,
+              token: `${token}`,
+            })
+          }
         >
-          Delete
-        </a>,
+          <Button danger>Delete</Button>
+        </Popconfirm>,
       ],
     },
   ];
@@ -97,16 +103,18 @@ const CountriesTable = () => {
         recordCreatorProps={{
           position: "top",
           record: () => ({
-            id: (Math.random() * 1000000).toFixed(0),
+            id: Number((Math.random() * 1000000).toFixed(0)),
+            name: undefined, // or provide a default name if you want
           }),
         }}
         loading={isLoading}
         columns={columns}
-        value={data?.countries}
+        value={countries?.countries}
         editable={{
           type: "single",
           editableKeys,
-          onSave: async (rowKey, data) => {
+          onSave: async (rowKey, record) => {
+            console.log("on-save:", rowKey, record);
             try {
               showMessage({
                 messageApi,
@@ -117,12 +125,12 @@ const CountriesTable = () => {
 
               const res = isEdit
                 ? await editCountries({
-                    name: data.name,
-                    id: data.id,
+                    name: `${record.name}`,
+                    id: record.id,
                     token: `${token}`,
                   })
                 : await addCountries({
-                    name: data.name,
+                    name: `${record.name}`,
                     token: `${token}`,
                   });
 
@@ -136,6 +144,7 @@ const CountriesTable = () => {
               console.log(error);
             }
           },
+          onChange: setEditableRowKeys,
         }}
       />
     </>

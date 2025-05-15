@@ -6,6 +6,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { userApi } from "./features/User/userApi";
 import { adsApi } from "./features/Ads/adsApi";
 import { countriesApi } from "./features/address/countries/countriesApi";
+import { citiesApi } from "./features/address/cities/citiesApi";
+import { regionsApi } from "./features/address/regions/regionsApi";
+import { complaintsApi } from "./features/complaints/complaintsApi";
+import { ordersApi } from "./features/orders/ordersApi";
 export const store = configureStore({
   reducer: {
     user: userReduser,
@@ -14,12 +18,20 @@ export const store = configureStore({
     [userApi.reducerPath]: userApi.reducer,
     [adsApi.reducerPath]: adsApi.reducer,
     [countriesApi.reducerPath]: countriesApi.reducer,
+    [citiesApi.reducerPath]: citiesApi.reducer,
+    [regionsApi.reducerPath]: regionsApi.reducer,
+    [complaintsApi.reducerPath]: complaintsApi.reducer,
+    [ordersApi.reducerPath]: ordersApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
       userApi.middleware,
       adsApi.middleware,
-      countriesApi.middleware
+      countriesApi.middleware,
+      citiesApi.middleware,
+      regionsApi.middleware,
+      complaintsApi.middleware,
+      ordersApi.middleware
     ), // إضافة middleware
 });
 

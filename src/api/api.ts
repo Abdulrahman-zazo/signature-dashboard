@@ -105,7 +105,7 @@ export const DELETE_FEATURES = "ad-package/dashboard/feature/delete";
 /* --------------------Complaints------------------*/
 
 export const GET_COMPLAINTS = "complaints/dashboard/all";
-export const ADD_COMPLAINTS = "complaints/dashboard/add-reply";
+export const ADD_REPLAY_COMPLAINTS = "complaints/dashboard/add-reply";
 
 /* --------------------
 Config------------------*/
