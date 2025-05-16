@@ -4,31 +4,41 @@ import { useState } from "react";
 import { useGetAllCountriesQuery } from "../../../../app/features/address/countries/countriesApi";
 import { cookieService } from "../../../../Cookies/CookiesServices";
 import { showMessage } from "../../../../components/Message/Message";
-import { Button, message, Popconfirm } from "antd";
+import { Button, message, Popconfirm, Select } from "antd";
 import { QuestionCircleOutlined } from "@ant-design/icons";
 import {
   useAddCitiesMutation,
   useDeleteCitiesMutation,
   useEditCitiesMutation,
-  useGetAllCitiesQuery,
+  useGetAllCitiesByCountryIdQuery,
 } from "../../../../app/features/address/cities/citiesApi";
 type DataSourceType = {
   id: number; // Explicitly define id as string or number
   name?: string;
 };
-
+export interface ICountries {
+  name: string;
+  id?: string | number;
+}
 const CitiesTable = () => {
   const token = cookieService.get("auth_token");
   const [editableKeys, setEditableRowKeys] = useState<React.Key[]>([]);
+  const [countryid, setcountryid] = useState("1");
   const [isEdit, setisEdit] = useState<boolean>(false);
 
   const [messageApi, contextHolder] = message.useMessage();
   const { data: countries } = useGetAllCountriesQuery({
     refetchOnMountOrArgChange: true,
   });
-  const { data: cities, isLoading } = useGetAllCitiesQuery({
-    refetchOnMountOrArgChange: true,
-  });
+  const countryOptions = countries?.countries?.map(
+    ({ id, name }: ICountries) => ({
+      value: id,
+      label: name,
+    })
+  );
+
+  const { data: cities, isLoading } =
+    useGetAllCitiesByCountryIdQuery(countryid);
   const [addCities] = useAddCitiesMutation();
   const [editCities] = useEditCitiesMutation();
   const [deleteCities] = useDeleteCitiesMutation();
@@ -49,23 +59,23 @@ const CitiesTable = () => {
         return {};
       },
     },
-    // {
-    //   title: "Status",
-    //   key: "state",
-    //   dataIndex: "state",
-    //   valueType: "select",
-    //   valueEnum: {
-    //     all: { text: "All", status: "Default" },
-    //     open: {
-    //       text: "Unresolved",
-    //       status: "Error",
-    //     },
-    //     closed: {
-    //       text: "Resolved",
-    //       status: "Success",
-    //     },
-    //   },
-    // },
+    {
+      title: "Country",
+      key: "countryid",
+      dataIndex: "state",
+      valueType: "select",
+      valueEnum: {
+        all: { text: "All", status: "Default" },
+        open: {
+          text: "Unresolved",
+          status: "Error",
+        },
+        closed: {
+          text: "Resolved",
+          status: "Success",
+        },
+      },
+    },
 
     {
       title: "Actions",
@@ -103,6 +113,20 @@ const CitiesTable = () => {
     <>
       {contextHolder}
       <EditableProTable<DataSourceType>
+        headerTitle={
+          <div className="grid grid-cols-2 gap-4 m-auto items-center w-full">
+            <div>
+              <p>select country to view city</p>
+            </div>
+            <div>
+              <Select
+                style={{ width: 120 }}
+                onChange={(value: string) => setcountryid(value)}
+                options={countryOptions}
+              />
+            </div>
+          </div>
+        }
         rowKey="id"
         recordCreatorProps={{
           position: "top",

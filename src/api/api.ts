@@ -24,12 +24,14 @@ export const DELETE_COUNTRIES = "address/dashboard/country/delete";
 
 /* --------------------Address/Cities------------------*/
 export const GET_ALL_CITIES = "address/dashboard/city/all";
+export const GET_ALL_CITIES_BY_CUNTRYID = "address/dashboard/all-cities-by";
 export const ADD_CITIES = "address/dashboard/city/add";
 export const UPDATE_CITIES = "address/dashboard/city/update";
 export const DELETE_CITIES = "address/dashboard/city/delete";
 
 /* --------------------Address/ Region------------------*/
 export const GET_ALL_REGIONS = "address/dashboard/region/all";
+export const GET_ALL_REGIONS_BY_CITIESID = "address/dashboard/all-regions-by";
 export const ADD_REGIONS = "address/dashboard/region/add";
 export const UPDATE_REGIONS = "address/dashboard/region/update";
 export const DELETE_REGIONS = "address/dashboard/region/delete";

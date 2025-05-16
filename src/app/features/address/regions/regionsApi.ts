@@ -4,7 +4,7 @@ import { decryptToken } from "../../../../Cookies/CryptoServices/crypto";
 import {
   ADD_REGIONS,
   DELETE_REGIONS,
-  GET_ALL_REGIONS,
+  GET_ALL_REGIONS_BY_CITIESID,
   UPDATE_REGIONS,
 } from "../../../../api/api";
 
@@ -19,9 +19,9 @@ export const regionsApi = createApi({
   tagTypes: ["regions"],
   baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_BASE_URL }),
   endpoints: (builder) => ({
-    getAllRegions: builder.query({
-      query: () => ({
-        url: GET_ALL_REGIONS,
+    getAllRegionsByCity: builder.query({
+      query: (city_id) => ({
+        url: `${GET_ALL_REGIONS_BY_CITIESID}/ ${city_id}`,
       }),
       providesTags: ["regions"],
     }),
@@ -72,7 +72,7 @@ export const regionsApi = createApi({
 });
 
 export const {
-  useGetAllRegionsQuery,
+  useGetAllRegionsByCityQuery,
   useAddRegionsMutation,
   useEditRegionsMutation,
   useDeleteRegionsMutation,
