@@ -4,6 +4,7 @@ import { decryptToken } from "../../../../Cookies/CryptoServices/crypto";
 import {
   ADD_CITIES,
   DELETE_CITIES,
+  GET_ALL_CITIES,
   GET_ALL_CITIES_BY_CUNTRYID,
   UPDATE_CITIES,
 } from "../../../../api/api";
@@ -18,6 +19,12 @@ export const citiesApi = createApi({
   tagTypes: ["cities"],
   baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_BASE_URL }),
   endpoints: (builder) => ({
+    getAllCities: builder.query({
+      query: () => ({
+        url: GET_ALL_CITIES,
+      }),
+      providesTags: ["cities"],
+    }),
     getAllCitiesByCountryId: builder.query({
       query: (country_id) => ({
         url: `${GET_ALL_CITIES_BY_CUNTRYID}/${country_id}`,
@@ -71,6 +78,7 @@ export const citiesApi = createApi({
 });
 
 export const {
+  useGetAllCitiesQuery,
   useGetAllCitiesByCountryIdQuery,
   useAddCitiesMutation,
   useDeleteCitiesMutation,

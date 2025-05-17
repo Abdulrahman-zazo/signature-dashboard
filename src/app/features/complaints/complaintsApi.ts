@@ -14,8 +14,11 @@ export const complaintsApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_BASE_URL }),
   endpoints: (builder) => ({
     getAllComplaints: builder.query({
-      query: () => ({
+      query: (token: string) => ({
         url: GET_COMPLAINTS,
+        headers: {
+          Authorization: `Bearer ${decryptToken(token)}`,
+        },
       }),
       providesTags: ["complaints"],
     }),

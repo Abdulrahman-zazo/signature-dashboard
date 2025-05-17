@@ -1,7 +1,7 @@
 import { Skeleton } from "antd";
 
 interface IProps {
-  type: "card" | "list";
+  type: "card" | "list" | "h-card";
   row?: number;
   Haveavatar?: boolean;
 }
@@ -47,7 +47,7 @@ const TableSkeleton = ({ rows = 5, cols = 4 }) => {
 const SkeletonCustom = ({ type, row = 2, Haveavatar = true }: IProps) => {
   return (
     <>
-      {type === "card" ? (
+      {type === "card" && (
         <div className="grid grid-cols-1   md:grid-cols-3 lg:grid-col-4 gap-8 mt-6">
           {Array.from({ length: 8 }).map((_, index) => (
             <div
@@ -61,9 +61,45 @@ const SkeletonCustom = ({ type, row = 2, Haveavatar = true }: IProps) => {
             </div>
           ))}
         </div>
-      ) : (
+      )}
+      {type === "list" && (
         <div className="w-full">
           <TableSkeleton cols={4} rows={8} />
+        </div>
+      )}
+      {type === "h-card" && (
+        <div className="w-full">
+          <div className="mb-4">
+            <Skeleton.Input active size="small" className="mb-2" />
+            <div className="flex items-center gap-4 w-[20%] ">
+              <Skeleton.Button
+                active
+                size={"small"}
+                shape={"default"}
+                style={{ width: "90%" }}
+              />
+              <Skeleton.Button
+                active
+                size={"small"}
+                shape={"default"}
+                style={{ width: "90%" }}
+              />
+            </div>
+          </div>
+          <div className="mt-8">
+            {Array.from({ length: 4 }).map((_, index) => (
+              <div
+                className="border-2 rounded-md border-neutral-100 p-4 mt-2"
+                key={index}
+              >
+                <Skeleton
+                  active
+                  paragraph={{ rows: row }}
+                  avatar={Haveavatar}
+                />
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </>

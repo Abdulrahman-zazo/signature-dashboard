@@ -59,23 +59,6 @@ const CitiesTable = () => {
         return {};
       },
     },
-    {
-      title: "Country",
-      key: "countryid",
-      dataIndex: "state",
-      valueType: "select",
-      valueEnum: {
-        all: { text: "All", status: "Default" },
-        open: {
-          text: "Unresolved",
-          status: "Error",
-        },
-        closed: {
-          text: "Resolved",
-          status: "Success",
-        },
-      },
-    },
 
     {
       title: "Actions",
@@ -92,8 +75,8 @@ const CitiesTable = () => {
           Edit
         </Button>,
         <Popconfirm
-          title="Delete the Country"
-          description="Are you sure to delete this Country?"
+          title="Delete the city"
+          description={`Are you sure to delete this ${record.name} city`}
           icon={<QuestionCircleOutlined style={{ color: "red" }} />}
           onConfirm={() =>
             deleteCities({
@@ -142,12 +125,12 @@ const CitiesTable = () => {
           type: "single",
           editableKeys,
           onSave: async (rowKey, record) => {
-            console.log("on-save:", rowKey, record);
+            console.log("on-save:", rowKey, record, countryid);
             try {
               showMessage({
                 messageApi,
                 type: "loading",
-                content: "جاري إضافة الدولة...",
+                content: "جاري إضافة المدينة...",
                 duration: 4,
               });
 
@@ -156,10 +139,12 @@ const CitiesTable = () => {
                     name: `${record.name}`,
                     id: record.id,
                     token: `${token}`,
+                    country_id: countryid,
                   })
                 : await addCities({
                     name: `${record.name}`,
                     token: `${token}`,
+                    country_id: countryid,
                   });
 
               if ("data" in res && res.data.status === true)

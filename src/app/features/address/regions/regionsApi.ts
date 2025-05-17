@@ -30,7 +30,7 @@ export const regionsApi = createApi({
         url: ADD_REGIONS,
         method: "POST",
         body: {
-          city_name: name,
+          region_name: name,
           city_id: city_id,
         },
         headers: {
@@ -60,7 +60,7 @@ export const regionsApi = createApi({
         url: DELETE_REGIONS,
         method: "POST",
         body: {
-          city_id: `${id}`,
+          region_id: `${id}`,
         },
         headers: {
           Authorization: `Bearer ${decryptToken(token)}`,
