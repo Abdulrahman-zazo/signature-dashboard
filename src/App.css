@@ -1,0 +1,22 @@
+/* في ملف CSS الرئيسي (مثل: src/index.css) */
+@layer utilities {
+  @media (forced-colors: active) {
+    .forced-colors-bg {
+      background-color: Canvas !important;
+    }
+    .forced-colors-text {
+      color: CanvasText !important;
+    }
+    .forced-colors-link {
+      color: LinkText !important;
+    }
+  }
+}
+/* في ملف CSS الرئيسي */
+@layer base {
+  :root {
+    --color-canvas: Canvas;
+    --color-canvas-text: CanvasText;
+    --color-link-text: LinkText;
+  }
+}

@@ -13,14 +13,15 @@ interface Iuser {
 
 export const LoginPage = () => {
   const [messageApi, contextHolder] = message.useMessage();
+  const navigate = useNavigate();
   const date = new Date();
 
+  // 1- Initial values for login form.
   const initialValues: Iuser = {
     email: "",
     password: "",
   };
 
-  const navigate = useNavigate();
   const [login, { isLoading }] = useLoginMutation();
 
   const onFinish = async (values: Iuser) => {
@@ -38,18 +39,16 @@ export const LoginPage = () => {
         showMessage({
           messageApi,
           type: "success",
-          content: "تم التسجيل بنجاح!",
+          content: result.data?.msg,
         });
-
-        // ✅ استخدام result.data.user
+        // 2- Using result.data.user because data from useLoginMutation in initial undefined then its return error message.
         encryptToken(result.data.user.token);
-
         setTimeout(() => navigate("/dashboard"), 1000);
       } else {
         showMessage({
           messageApi,
           type: "error",
-          content: result.data?.msg || "فشل في تسجيل الدخول",
+          content: result.data?.msg,
         });
       }
     } catch (err) {

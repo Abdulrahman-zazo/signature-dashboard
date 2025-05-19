@@ -14,11 +14,14 @@
 
 :root {
   font-family: inter, Avenir, Helvetica, Arial, sans-serif;
+  color: CanvasText !important;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: Canvas !important;
+  color: LinkText !important;
 }
 :where(.css-dev-only-do-not-override-vxenvr).ant-skeleton.ant-skeleton-element {
   width: 100%;
@@ -54,4 +57,29 @@
 * {
   scrollbar-width: thin;
   scrollbar-color: #dddddd #ffffff;
+}
+
+@layer utilities {
+  @media (forced-colors: active) {
+    .forced-colors-bg {
+      background-color: Canvas !important;
+    }
+    .forced-colors-text {
+      color: CanvasText !important;
+    }
+    .forced-colors-link {
+      color: LinkText !important;
+    }
+  }
+}
+/* في ملف CSS الرئيسي */
+@layer base {
+  :root {
+    --color-canvas: Canvas;
+    --color-canvas-text: CanvasText;
+    --color-link-text: LinkText;
+  }
+}
+:where(.css-dev-only-do-not-override-vxenvr).ant-otp {
+  width: 100%;
 }

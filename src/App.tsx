@@ -13,14 +13,14 @@ function App() {
   const language = useAppSelector((state) => state.language);
 
   return (
-    <>
+    <div className="forced-colors-bg   forced-colors-text   forced-colors-link   ">
       <ConfigProvider
         theme={configDesign}
         locale={language === "ar" ? ar_EG : en_US}
       >
         <RouterProvider router={router} />
       </ConfigProvider>
-    </>
+    </div>
   );
 }
 

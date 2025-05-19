@@ -1,10 +1,24 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { LOGIN, USER_INFORMATION } from "../../../api/api";
+import {
+  CHANGE_PASSWORD,
+  CODE_TESTER,
+  FORGET_PASSWORD,
+  LOGIN,
+  LOGOUT,
+  RESEND_CODE,
+  USER_INFORMATION,
+} from "../../../api/api";
 import { decryptToken } from "../../../Cookies/CryptoServices/crypto";
 
 interface Iuserdata {
   email: string;
   password: string;
+}
+interface IforgetPassword {
+  email: string;
+  password?: string;
+  confirmationpassword?: string;
+  code?: number;
 }
 export const userApi = createApi({
   reducerPath: "authApi",
@@ -28,7 +42,61 @@ export const userApi = createApi({
       }),
       invalidatesTags: ["auth"],
     }),
+    logout: builder.mutation({
+      query: (token: string) => ({
+        url: LOGOUT,
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${decryptToken(token)}`,
+        },
+      }),
+      invalidatesTags: ["auth"],
+    }),
+    forgetpassword: builder.mutation({
+      query: (email: string) => ({
+        url: FORGET_PASSWORD,
+        method: "POST",
+        body: { email },
+      }),
+      invalidatesTags: ["auth"],
+    }),
+    testCode: builder.mutation({
+      query: ({ email, code }: IforgetPassword) => ({
+        url: CODE_TESTER,
+        method: "POST",
+        body: { email, code },
+      }),
+      invalidatesTags: ["auth"],
+    }),
+    changepassword: builder.mutation({
+      query: ({ email, password, confirmationpassword }: IforgetPassword) => ({
+        url: CHANGE_PASSWORD,
+        method: "POST",
+        body: {
+          email,
+          new_password: password,
+          new_password_confirmation: confirmationpassword,
+        },
+      }),
+      invalidatesTags: ["auth"],
+    }),
+    resendCode: builder.mutation({
+      query: ({ email }: Iuserdata) => ({
+        url: RESEND_CODE,
+        method: "POST",
+        body: { email },
+      }),
+      invalidatesTags: ["auth"],
+    }),
   }),
 });
 
-export const { useLoginMutation, useGetuserInformationQuery } = userApi;
+export const {
+  useLoginMutation,
+  useGetuserInformationQuery,
+  useForgetpasswordMutation,
+  useChangepasswordMutation,
+  useResendCodeMutation,
+  useTestCodeMutation,
+  useLogoutMutation,
+} = userApi;
