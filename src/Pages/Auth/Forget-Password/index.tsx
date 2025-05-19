@@ -3,12 +3,12 @@ import forgetpage from "../../../assets/forgetpage.png";
 import { Button, Form, Input, message } from "antd";
 import Logo from "../../../components/Ui/Logo";
 import { Mail } from "lucide-react";
-import { handelsendcode } from "../../../components/handelsendcode";
+import { handelsendcode } from "../../../components/utils/handelsendcode";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../../../app/store";
-import { handelTestCode } from "../../../components/handeTestCode";
+import { handelTestCode } from "../../../components/utils/handeTestCode";
 import { useState } from "react";
-import { handelNewPassword } from "../../../components/handelNewPassword";
+import { handelNewPassword } from "../../../components/utils/handelNewPassword";
 
 interface IProps {
   email: string;
@@ -18,7 +18,7 @@ interface IProps {
 }
 
 const ForgetPassword = () => {
-  const [email_veri, setemail] = useState("");
+  const [emailForVerification, setemailForVerification] = useState("");
   const { code: final_code, is_send } = useAppSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -33,46 +33,12 @@ const ForgetPassword = () => {
     code: undefined,
   };
 
-  // const handeltestcode = async (values: IProps) => {
-  //   try {
-  //     showMessage({
-  //       messageApi,
-  //       type: "loading",
-  //       content: "جاري تسجيل الدخول...",
-  //       duration: 4,
-  //     });
-
-  //     const result = await forgetpassword(values);
-
-  //     if (result.data.status === true) {
-  //       showMessage({
-  //         messageApi,
-  //         type: "success",
-  //         content: result.data?.msg,
-  //       });
-  //       // 2- Using result.data.user because data from useLoginMutation in initial undefined then its return error message.
-  //       setTimeout(() => setshowinputCode(true), 500);
-  //     } else {
-  //       showMessage({
-  //         messageApi,
-  //         type: "error",
-  //         content: result.data?.msg,
-  //       });
-  //     }
-  //   } catch (err) {
-  //     const error = err as { data?: { msg?: string } };
-  //     showMessage({
-  //       messageApi,
-  //       type: "error",
-  //       content: error.data?.msg || "حدث خطأ أثناء الاتصال بالخادم",
-  //     });
-  //   }
-  // };
   return (
     <div className="flex justify-between items-center  max-[800px]:justify-center m-auto h-[100vh]">
       {contextHolder}
+      {/* 2- Image side */}
       <div className="w-1/2 flex flex-col  justify-center  my-4 h-full bg-background max-[800px]:hidden animate-fade-down inset-shadow-sm">
-        <div className="  mx-8 my-4 ">
+        <div className="mx-8 my-4 ">
           <img src={forgetpage} alt="Login" className="w-[90%] 2xl:w-[100%]" />
 
           <p className="  text-gray-500 text-[14px] my-2 w-[70%]  ">
@@ -85,9 +51,9 @@ const ForgetPassword = () => {
         </div>
       </div>
 
-      {/* Form side */}
+      {/* 3- Form side */}
       <div className="w-2/3  max-[800px]:w-full flex flex-col justify-center items-center  ">
-        <div className="w-2/3  ">
+        <div className="w-2/3 ">
           <div className="max-[800px]:text-center  ">
             <div className="mb-8  max-[800px]:hidden ">
               <Logo type="h" width={150} />
@@ -95,10 +61,10 @@ const ForgetPassword = () => {
             <div className=" flex justify-center  min-[800px]:hidden ">
               <Logo type="v" width={150} />
             </div>
-            <h1 className="text-text font-bold text-lg md:text-xl xl:text-3xl mb-2 ">
+            <h1 className="mb-2 text-lg font-bold text-text md:text-xl xl:text-3xl ">
               Reset Password
             </h1>
-            <p className=" text-gray-600 text-sm md:text-base xl:text-lg mb-4 ">
+            <p className="mb-4 text-sm text-gray-600 md:text-base xl:text-lg">
               Enter your email account to rest your password
             </p>
           </div>
@@ -107,10 +73,10 @@ const ForgetPassword = () => {
               size="middle"
               layout="vertical"
               name="forgetpassword"
-              className="w-full"
+              className="w-full animate-fade-up"
               initialValues={initialValues}
               onFinish={(values) => {
-                setemail(values?.email);
+                setemailForVerification(values?.email); //4- To use it in next steps when testing code with email.
                 handelsendcode({
                   messageApi,
                   email: values?.email,
@@ -126,18 +92,14 @@ const ForgetPassword = () => {
                 ]}
               >
                 <Input
-                  prefix={<Mail />}
+                  prefix={<Mail size={16} />}
                   placeholder="Enter your email address "
+                  type="email"
                 />
               </Form.Item>
 
               <Form.Item>
                 <Button block type="primary" htmlType="submit">
-                  {/* {isLoading_Forgetpassword ? (
-                  <Spin size="default" indicator={<LoadingOutlined spin />} />
-                ) : (
-                  "Send code"
-                )} */}
                   Send
                 </Button>
               </Form.Item>
@@ -145,7 +107,7 @@ const ForgetPassword = () => {
                 Already remember your password?
                 <Link
                   to="/auth/login"
-                  className="text-primary hover:text-primary-500 mx-2"
+                  className="mx-2 text-primary hover:text-primary-500"
                 >
                   Login Here
                 </Link>
@@ -153,7 +115,7 @@ const ForgetPassword = () => {
             </Form>
           )}
           {is_send && !final_code && (
-            <div className="flex flex-col items-center w-full mt-8">
+            <div className="w-full mt-8 animate-fade-up">
               <Form
                 size="large"
                 layout="vertical"
@@ -162,7 +124,7 @@ const ForgetPassword = () => {
                 onFinish={(values) => {
                   handelTestCode({
                     code: values?.code,
-                    email: email_veri,
+                    email: emailForVerification,
                     messageApi,
                     dispatch,
                   });
@@ -182,20 +144,19 @@ const ForgetPassword = () => {
                     },
                   ]}
                 >
-                  <Input.OTP
+                  {/* <Input.OTP
                     length={4}
                     size="large"
+                    className="flex justify-between w-full"
+                  /> */}
+                  <Input
+                    size="middle"
                     className="flex justify-between w-full"
                   />
                 </Form.Item>
 
                 <Form.Item>
                   <Button block type="primary" htmlType="submit">
-                    {/* {isLoading_Forgetpassword ? (
-                    <Spin size="default" indicator={<LoadingOutlined spin />} />
-                  ) : (
-                    "Send code"
-                  )} */}
                     change password
                   </Button>
                 </Form.Item>
@@ -203,23 +164,24 @@ const ForgetPassword = () => {
                   Already remember your password?
                   <Link
                     to="/auth/login"
-                    className="text-primary hover:text-primary-500 mx-2"
+                    className="mx-2 text-primary hover:text-primary-500"
                   >
                     Login Here
                   </Link>
                 </div>
-                <div className="text-gray-600 mt-2">
+                <div className="mt-2 text-gray-600">
                   Didn't receive the code?
                   <Button
-                    type="text"
+                    type="link"
+                    size="small"
                     onClick={() => {
                       handelsendcode({
                         messageApi,
-                        email: email_veri,
+                        email: emailForVerification,
                         dispatch,
                       });
                     }}
-                    className="text-primary hover:text-primary-500 mx-2"
+                    className=" text-primary hover:text-primary-500"
                   >
                     Resend it.
                   </Button>
@@ -228,17 +190,17 @@ const ForgetPassword = () => {
             </div>
           )}
           {final_code && (
-            <div className="flex flex-col items-center w-full mt-8">
+            <div className="w-full mt-8 animate-fade-up ">
               <Form
-                size="large"
+                size="middle"
                 layout="vertical"
-                name="testcode"
+                name="changepassword"
                 initialValues={initialValues}
                 onFinish={(values) => {
                   handelNewPassword({
                     password: values.password,
                     confirmationpassword: values.confirmation,
-                    email: email_veri,
+                    email: emailForVerification,
                     messageApi,
                     dispatch,
                     navigate,
@@ -251,18 +213,17 @@ const ForgetPassword = () => {
                   rules={[
                     { required: true, message: "Please input your Password!" },
                     {
-                      min: 6,
-                      message: "Password must be at least 6 characters!",
+                      min: 8,
+                      message: "Password must be at least 8 characters!",
                     },
                   ]}
                 >
                   <Input.Password placeholder="Enter your password" />
                 </Form.Item>
-
                 <Form.Item
                   label="Confirm New Password"
                   name="confirmation"
-                  dependencies={["new_password"]}
+                  dependencies={["password"]}
                   rules={[
                     {
                       required: true,
@@ -270,7 +231,7 @@ const ForgetPassword = () => {
                     },
                     ({ getFieldValue }) => ({
                       validator(_, value) {
-                        if (!value || getFieldValue("new_password") === value) {
+                        if (!value || getFieldValue("password") === value) {
                           return Promise.resolve();
                         }
                         return Promise.reject(
@@ -296,7 +257,7 @@ const ForgetPassword = () => {
                   Already remember your password?
                   <Link
                     to="/auth/login"
-                    className="text-primary hover:text-primary-500 mx-2"
+                    className="mx-2 text-primary hover:text-primary-500"
                   >
                     Login Here
                   </Link>

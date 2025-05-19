@@ -1,39 +1,28 @@
 import type { MessageInstance } from "antd/lib/message/interface";
-import { showMessage } from "./Message/Message";
-import { userApi } from "../app/features/User/userApi";
-import type { AppDispatch } from "../app/store";
-import type { NavigateFunction } from "react-router-dom";
-
+import { showMessage } from "../Message/Message";
+import { sendcodeAction } from "../../app/features/User/userSlice";
+import { userApi } from "../../app/features/User/userApi";
+import type { AppDispatch } from "../../app/store";
 interface IProps {
   messageApi: MessageInstance;
-  email: string;
-  password: string;
-  confirmationpassword: string;
   dispatch: AppDispatch;
-  navigate: NavigateFunction;
+  email: string;
 }
-export const handelNewPassword = async ({
+export const handelsendcode = async ({
   messageApi,
   email,
-  password,
-  confirmationpassword,
   dispatch,
-  navigate,
 }: IProps) => {
   try {
     showMessage({
       messageApi,
       type: "loading",
-      content: "جاري تغيير كلمة المرور ",
+      content: "جاري إرسال كود التحقق ...",
       duration: 4,
     });
 
     const result = await dispatch(
-      userApi.endpoints.changepassword.initiate({
-        email,
-        password,
-        confirmationpassword,
-      })
+      userApi.endpoints.forgetpassword.initiate(email)
     ).unwrap();
     console.log(result);
 
@@ -44,7 +33,7 @@ export const handelNewPassword = async ({
         content: result?.msg,
       });
       // 2- Using result.data.user because data from useLoginMutation in initial undefined then its return error message.
-      setTimeout(() => navigate("/auth/login"), 500);
+      setTimeout(() => dispatch(sendcodeAction()), 500);
     } else {
       showMessage({
         messageApi,

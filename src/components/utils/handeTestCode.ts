@@ -1,8 +1,8 @@
 import type { MessageInstance } from "antd/lib/message/interface";
-import { showMessage } from "./Message/Message";
-import { verificationCodeAction } from "../app/features/User/userSlice";
-import { userApi } from "../app/features/User/userApi";
-import type { AppDispatch } from "../app/store";
+import { showMessage } from "../Message/Message";
+import { verificationCodeAction } from "../../app/features/User/userSlice";
+import { userApi } from "../../app/features/User/userApi";
+import type { AppDispatch } from "../../app/store";
 interface IProps {
   messageApi: MessageInstance;
   dispatch: AppDispatch;

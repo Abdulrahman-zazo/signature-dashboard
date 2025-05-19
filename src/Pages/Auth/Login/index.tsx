@@ -1,11 +1,14 @@
-import { Link, useNavigate } from "react-router-dom";
 import loginImage from "../../../assets/loginpage.png";
-import { Button, Form, Input, message, Spin } from "antd";
 import Logo from "../../../components/Ui/Logo";
+
 import { useLoginMutation } from "../../../app/features/User/userApi";
 import { encryptToken } from "../../../Cookies/CryptoServices/crypto";
 import { showMessage } from "../../../components/Message/Message";
+
+import { Link, useNavigate } from "react-router-dom";
+import { Button, Form, Input, message, Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
+
 interface Iuser {
   email: string;
   password: string;
@@ -41,6 +44,7 @@ export const LoginPage = () => {
           type: "success",
           content: result.data?.msg,
         });
+
         // 2- Using result.data.user because data from useLoginMutation in initial undefined then its return error message.
         encryptToken(result.data.user.token);
         setTimeout(() => navigate("/dashboard"), 1000);
@@ -64,13 +68,13 @@ export const LoginPage = () => {
     <div className="flex justify-between items-center  max-[800px]:justify-center m-auto h-[100vh]">
       {contextHolder}
       <div className="w-1/2 flex flex-col  justify-center   my-4 h-full bg-background max-[800px]:hidden animate-fade-down inset-shadow-sm">
-        <div className="  mx-8 my-4 ">
+        <div className="mx-8 my-4 ">
           <img src={loginImage} alt="Login" className="w-[90%] 2xl:w-[100%]" />
           <div>
-            <h1 className="  my-2 text-text font-bold text-lg md:text-xl xl:text-3xl">
+            <h1 className="my-2 text-lg font-bold text-text md:text-xl xl:text-3xl">
               Find your sweet home
             </h1>
-            <p className="  text-gray-600 text-sm md:text-base xl:text-lg">
+            <p className="text-sm text-gray-600 md:text-base xl:text-lg">
               Schedule visit in just a few clicks visits in just a few clicks
             </p>
           </div>
@@ -79,7 +83,7 @@ export const LoginPage = () => {
 
       {/* form side */}
       <div className="  w-2/3 h-full  max-[800px]:w-full flex flex-col justify-center items-center   ">
-        <div className="w-2/3  ">
+        <div className="w-2/3 ">
           <div className="max-[800px]:text-center  ">
             <div className="mb-8  max-[800px]:hidden ">
               <Logo type="h" width={150} />
@@ -87,10 +91,10 @@ export const LoginPage = () => {
             <div className=" flex justify-center  min-[800px]:hidden ">
               <Logo type="v" width={150} />
             </div>
-            <h1 className="text-text font-bold text-lg md:text-xl xl:text-3xl mb-2 ">
+            <h1 className="mb-2 text-lg font-bold text-text md:text-xl xl:text-3xl ">
               Welcome Back!
             </h1>
-            <p className="text-gray-600 text-sm md:text-base xl:text-lg mb-4 ">
+            <p className="mb-4 text-sm text-gray-600 md:text-base xl:text-lg ">
               Login using your account
             </p>
           </div>
@@ -105,17 +109,19 @@ export const LoginPage = () => {
             <Form.Item
               label="Email"
               name="email"
-              rules={[
-                { required: true, message: "Please input your Username!" },
-              ]}
+              rules={[{ required: true, message: "Please input your email!" }]}
             >
-              <Input placeholder="Enter your email address " />
+              <Input placeholder="Enter your email address " type="email" />
             </Form.Item>
             <Form.Item
               label="Password"
               name="password"
               rules={[
                 { required: true, message: "Please input your Password!" },
+                {
+                  min: 8,
+                  message: "Password must be at least 8 characters long!",
+                },
               ]}
             >
               <Input.Password

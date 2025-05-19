@@ -1,30 +1,40 @@
 import type { MessageInstance } from "antd/lib/message/interface";
-import { showMessage } from "./Message/Message";
-import { sendcodeAction } from "../app/features/User/userSlice";
-import { userApi } from "../app/features/User/userApi";
-import type { AppDispatch } from "../app/store";
+import { showMessage } from "../Message/Message";
+import { userApi } from "../../app/features/User/userApi";
+import type { AppDispatch } from "../../app/store";
+import type { NavigateFunction } from "react-router-dom";
+
 interface IProps {
   messageApi: MessageInstance;
-  dispatch: AppDispatch;
   email: string;
+  password: string;
+  confirmationpassword: string;
+  dispatch: AppDispatch;
+  navigate: NavigateFunction;
 }
-export const handelsendcode = async ({
+export const handelNewPassword = async ({
   messageApi,
   email,
+  password,
+  confirmationpassword,
   dispatch,
+  navigate,
 }: IProps) => {
   try {
     showMessage({
       messageApi,
       type: "loading",
-      content: "جاري إرسال كود التحقق ...",
+      content: "جاري تغيير كلمة المرور ",
       duration: 4,
     });
 
     const result = await dispatch(
-      userApi.endpoints.forgetpassword.initiate(email)
+      userApi.endpoints.changepassword.initiate({
+        email,
+        password,
+        confirmationpassword,
+      })
     ).unwrap();
-    console.log(result);
 
     if (result?.status === true) {
       showMessage({
@@ -33,7 +43,10 @@ export const handelsendcode = async ({
         content: result?.msg,
       });
       // 2- Using result.data.user because data from useLoginMutation in initial undefined then its return error message.
-      setTimeout(() => dispatch(sendcodeAction()), 500);
+      setTimeout(() => {
+        window.location.reload();
+      }, 500);
+      navigate("/auth/login");
     } else {
       showMessage({
         messageApi,
