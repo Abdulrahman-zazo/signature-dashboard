@@ -1,8 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { useDispatch, useSelector } from "react-redux";
+//slices
 import userReduser from "./features/User/userSlice";
 import uiReduser from "./features/uiSlice/uiSlice";
 import langReducer from "./features/Language/LanguageSlice";
-import { useDispatch, useSelector } from "react-redux";
+import complaintsSlice from "./features/complaints/complaintsSlice";
+//apis
 import { userApi } from "./features/User/userApi";
 import { adsApi } from "./features/Ads/adsApi";
 import { countriesApi } from "./features/address/countries/countriesApi";
@@ -15,6 +18,7 @@ export const store = configureStore({
     user: userReduser,
     uiSlice: uiReduser,
     language: langReducer,
+    complaints: complaintsSlice,
     [userApi.reducerPath]: userApi.reducer,
     [adsApi.reducerPath]: adsApi.reducer,
     [countriesApi.reducerPath]: countriesApi.reducer,

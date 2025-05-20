@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { setDisplayDataAsCard } from "../../../app/features/uiSlice/uiSlice";
 import AdsCards from "./UiHome/AdsCards";
 import AdsTable from "./UiHome/AdsTable";
+import { useGetAllComplaintsQuery } from "../../../app/features/complaints/complaintsApi";
 
 const HomePage = () => {
   const [FilterAs, seTFelterAs] = useState("all");
@@ -21,13 +22,15 @@ const HomePage = () => {
   const { data, isLoading, error } = useGetAllAdsQuery(`${token}`);
 
   console.log(data, isLoading, error);
-
+  useGetAllComplaintsQuery(`${token}`, {
+    refetchOnMountOrArgChange: true,
+  });
   return (
     <div>
       {/* top section */}
       <div>
-        <h3 className="font-semibold text-xl mb-3">All Real state</h3>
-        <div className="flex justify-between items-center ">
+        <h3 className="mb-3 text-xl font-semibold">All Real state</h3>
+        <div className="flex items-center justify-between ">
           <div className="flex gap-4 max-[800px]:hidden ">
             <Button
               onClick={() => seTFelterAs("all")}
@@ -96,7 +99,7 @@ const HomePage = () => {
           />
         )}
         {data && DisplayDataAsCard === "card" ? (
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-col-4 gap-8 mt-6">
+          <div className="grid grid-cols-1 gap-8 mt-6 md:grid-cols-3 lg:grid-col-4">
             <AdsCards />
           </div>
         ) : (

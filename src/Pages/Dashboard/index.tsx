@@ -7,8 +7,9 @@ import Logo from "../../components/Ui/Logo";
 import { useAppSelector } from "../../app/store";
 import HeaderDashbord from "../../components/Header";
 import { Outlet } from "react-router-dom";
-import { items } from "./sideBar";
+
 import { siderStyle } from "../../components/ExtraStyles";
+import { ItemsComponent } from "./sideBar";
 
 const Dashboard = () => {
   const { collapsed } = useAppSelector((state) => state.uiSlice);
@@ -26,14 +27,14 @@ const Dashboard = () => {
           collapsible
           collapsed={collapsed}
         >
-          <div className="flex justify-center items-center mx-auto my-4">
+          <div className="flex items-center justify-center mx-auto my-4">
             {collapsed ? (
               <Logo type="icon" width={30} />
             ) : (
               <Logo type="sidebar" width={120} />
             )}
           </div>
-          <Menu mode="inline" items={items} />
+          <Menu mode="inline" items={ItemsComponent()} />
         </Sider>
         <Layout>
           <HeaderDashbord />
