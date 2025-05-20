@@ -1,6 +1,6 @@
 import type { MessageInstance } from "antd/lib/message/interface";
 import { showMessage } from "../Message/Message";
-import { userApi } from "../../app/features/User/userApi";
+import { userApi } from "../../app/features/auth/userApi";
 import type { AppDispatch } from "../../app/store";
 import type { NavigateFunction } from "react-router-dom";
 

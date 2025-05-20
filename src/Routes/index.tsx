@@ -13,6 +13,7 @@ import SettingsPage from "../Pages/Dashboard/Settings";
 import UsersPage from "../Pages/Dashboard/Users";
 import ComplaintsPage from "../Pages/Dashboard/Complaints/ComplaintsPage";
 import Address from "../Pages/Dashboard/Address/Address";
+// import AdminPage from "../Pages/Dashboard/Admin";
 
 export const router = createBrowserRouter([
   {
@@ -36,6 +37,7 @@ export const router = createBrowserRouter([
           { path: "/services", element: <ServicesPage /> },
           { path: "/settings", element: <SettingsPage /> },
           { path: "/users", element: <UsersPage /> },
+          // { path: "/admin", element: <AdminPage /> },
           { path: "/complaints", element: <ComplaintsPage /> },
         ],
       },

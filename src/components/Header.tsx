@@ -5,7 +5,7 @@ import { Button } from "antd";
 import { useAppSelector } from "../app/store";
 import { collapsedAction } from "../app/features/uiSlice/uiSlice";
 import { LogoutHandler } from "./LogoutHandler";
-import { useGetuserInformationQuery } from "../app/features/User/userApi";
+import { useGetuserInformationQuery } from "../app/features/auth/userApi";
 import { cookieService } from "../Cookies/CookiesServices";
 import { BellRing, LogOut } from "lucide-react";
 import { HaderFixed } from "./ExtraStyles";

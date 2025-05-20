@@ -65,24 +65,28 @@ export const ItemsComponent = () => {
     ),
     getItem(
       <>
-        <TranslateText text="SideBar.All_Users" />
+        <NavLink to="/users">
+          <TranslateText text="SideBar.All_Users" />
+        </NavLink>
       </>,
       "10",
-      <Users size={16} />,
-      [
-        getItem(
-          <NavLink to="/users">
-            <TranslateText text="SideBar.Admin" />
-          </NavLink>,
-          "6"
-        ),
-        getItem(
-          <NavLink to="/admin">
-            <TranslateText text="SideBar.Users" />
-          </NavLink>,
-          "8"
-        ),
-      ]
+      <Users size={16} />
+
+      // 1- Can view All user Type
+      // [
+      //   getItem(
+      //     <NavLink to="/admin">
+      //       <TranslateText text="SideBar.Admin" />
+      //     </NavLink>,
+      //     "6"
+      //   ),
+      //   getItem(
+      //     <NavLink to="/users">
+      //       <TranslateText text="SideBar.Users" />
+      //     </NavLink>,
+      //     "8"
+      //   ),
+      // ]
     ),
     getItem(
       <>

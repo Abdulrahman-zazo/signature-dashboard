@@ -1,7 +1,7 @@
 import loginImage from "../../../assets/loginpage.png";
 import Logo from "../../../components/Ui/Logo";
 
-import { useLoginMutation } from "../../../app/features/User/userApi";
+import { useLoginMutation } from "../../../app/features/auth/userApi";
 import { encryptToken } from "../../../Cookies/CryptoServices/crypto";
 import { showMessage } from "../../../components/Message/Message";
 

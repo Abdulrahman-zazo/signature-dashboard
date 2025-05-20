@@ -43,31 +43,32 @@ export const UPDATE_INFO_CONTACT = "superadmin/dashboard/info-contact/edit";
 export const DELETE_INFO_CONTACT = "superadmin/dashboard/info-contact/delete";
 
 /* --------------------Users------------------*/
-export const GET_ALL_USERS = "admin/dashboard/all-users";
-export const ADD_USERS = "admin/dashboard/add-user";
-export const UPDATE_USERS = "admin/dashboard/edite-user";
-export const DELETE_USERS = "admin/dashboard/delete-user";
-export const CHANGE_STATUS_USERS = "admin/dashboard/change-status-user";
+// export const GET_ALL_USERS = "admin/dashboard/all-users";
+// export const ADD_USERS = "admin/dashboard/add-user";
+// export const UPDATE_USERS = "admin/dashboard/edite-user";
+// export const DELETE_USERS = "admin/dashboard/delete-user";
+// export const CHANGE_STATUS_USERS = "admin/dashboard/change-status-user";
 
 /* --------------------Super------------------*/
 
 /* --------------------Super/Admin------------------*/
-export const GET_ALL_ADMIN = "superadmin/dashboard/admin/all";
-export const ADD_ADMIN = "superadmin/dashboard/admin/add";
+// export const GET_ALL_ADMIN = "superadmin/dashboard/admin/all";
+// export const ADD_ADMIN = "superadmin/dashboard/admin/add";
 
+/* --------------------Super/Users------------------*/
 export const GET_ALL_USERS_SUPER = "superadmin/dashboard/user/all";
 export const ADD_ADMIN_SUPER = "superadmin/dashboard/user/add";
 export const UPDATE_USERS_SUPER = "superadmin/dashboard/user/edite";
 export const DELETE_USERS_SUPER = "superadmin/dashboard/user/delete";
-export const CHANGE_STATUS_USER_TO_ADMIN =
+export const CHANGE_STATUS_USER_SUPER =
   "superadmin/dashboard/user/change-status";
 export const CHANGE_USER_ROLE_TO_ADMIN =
   "superadmin/dashboard/user/change-role";
 
 /* --------------------Super/Roles------------------*/
-export const GET_ALL_ROLES = "superadmin/dashboard/role/all";
-export const UPDATE_PERMISSIONS =
-  "superadmin/dashboard/role/update-permissions";
+// export const GET_ALL_ROLES = "superadmin/dashboard/role/all";
+// export const UPDATE_PERMISSIONS =
+//   "superadmin/dashboard/role/update-permissions";
 
 /* --------------------Super/Permissions------------------*/
 
