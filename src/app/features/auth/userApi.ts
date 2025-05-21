@@ -30,6 +30,7 @@ export const userApi = createApi({
         url: USER_INFORMATION,
         headers: {
           Authorization: `Bearer ${decryptToken(token)}`,
+          "Content-Type": "text/javascript",
         },
       }),
       providesTags: ["auth"],
@@ -48,6 +49,7 @@ export const userApi = createApi({
         method: "POST",
         headers: {
           Authorization: `Bearer ${decryptToken(token)}`,
+          "Content-Type": "text/javascript",
         },
       }),
       invalidatesTags: ["auth"],

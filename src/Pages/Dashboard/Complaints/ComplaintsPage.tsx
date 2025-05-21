@@ -45,7 +45,7 @@ const ComplaintsPage = () => {
   };
   const token = cookieService.get("auth_token");
 
-  // 1- state Coplainats using in replay drawer.
+  // 1- states Coplainats using in replay drawer.
   const [ComplaintsToReplay, setComplaintsToReplay] = useState<IComplaints>({
     id: "",
     title: "",
@@ -53,17 +53,19 @@ const ComplaintsPage = () => {
   });
   const [openDrawer, setopenDrawer] = useState<boolean>(false);
   const [is_UnreplayData, setIs_UnreplayData] = useState<boolean>(false);
-
+  // 2- Fetch and add Query
   const { data, isLoading } = useGetAllComplaintsQuery(`${token}`, {
     refetchOnMountOrArgChange: true,
   });
+  const [addComplaints, { isLoading: isLoadingAdd }] =
+    useAddComplaintsMutation();
 
+  // 3- handling
   const handelOpenForm = ({ id, title, text }: IComplaints) => {
     setComplaintsToReplay({ id, title, text });
     setopenDrawer(!openDrawer);
   };
-  const [addComplaints, { isLoading: isLoadingAdd }] =
-    useAddComplaintsMutation();
+
   const onFinish = async ({ reply, complaint_image }: IFormComplaints) => {
     try {
       // عرض رسالة التحميل

@@ -1,7 +1,11 @@
-interface IProps {}
+import AllUsersTable from "./Uiusers/AllUsersTable";
 
-const UsersPage = ({}: IProps) => {
-  return <div>UsersPage</div>;
+const UsersPage = () => {
+  return (
+    <div>
+      <AllUsersTable />
+    </div>
+  );
 };
 
 export default UsersPage;

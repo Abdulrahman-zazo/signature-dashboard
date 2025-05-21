@@ -37,8 +37,9 @@ const HeaderDashbord = () => {
             height: 64,
           }}
         />
-        <div className="flex justify-center items-center gap-4">
+        <div className="flex items-center justify-center gap-4">
           <button
+            title="Logout"
             type="button"
             className=" bg-red-50 text-red-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center me-2 "
             onClick={() => LogoutHandler()}
@@ -46,12 +47,13 @@ const HeaderDashbord = () => {
             <LogOut size={16} />
           </button>
           <button
+            title="Notifications"
             type="button"
             className=" bg-neutral-100 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center me-2 "
           >
             <BellRing size={16} />
           </button>
-          <div className="flex justify-center items-center gap-4">
+          <div className="flex items-center justify-center gap-4">
             {/* <img
               src={data?.User.image_url}
               alt={data?.User.first_name}

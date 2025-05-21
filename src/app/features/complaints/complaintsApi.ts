@@ -2,7 +2,6 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { ADD_REPLAY_COMPLAINTS, GET_COMPLAINTS } from "../../../api/api";
 import { decryptToken } from "../../../Cookies/CryptoServices/crypto";
 import { setNewComplaints } from "./complaintsSlice";
-import { cookieService } from "../../../Cookies/CookiesServices";
 
 export interface Icomplaints {
   reply: string;
@@ -10,7 +9,6 @@ export interface Icomplaints {
   complaint_id: string;
   complaint_image?: File[];
 }
-// const token = cookieService.get("auth_token");
 
 export const complaintsApi = createApi({
   reducerPath: "complaintsApi",

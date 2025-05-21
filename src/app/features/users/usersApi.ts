@@ -10,10 +10,16 @@ import {
 import { decryptToken } from "../../../Cookies/CryptoServices/crypto";
 
 export interface Iusers {
-  name: string;
   token: string;
-  id?: string | number;
-  country_id?: string | number;
+  user_type: "merchant" | "user";
+  user_id: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  region_id: string;
+  secondary_address: string;
+  phone_number: string;
+  identification_papers: File[];
 }
 export const usersApi = createApi({
   reducerPath: "usersApi",
@@ -21,67 +27,108 @@ export const usersApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_BASE_URL }),
   endpoints: (builder) => ({
     getAllUsers: builder.query({
-      query: () => ({
+      query: (token: string) => ({
         url: GET_ALL_USERS_SUPER,
+        headers: {
+          Authorization: `Bearer ${decryptToken(token)}`,
+          "Content-Type": "text/javascript",
+        },
       }),
       providesTags: ["users"],
     }),
 
     addUsers: builder.mutation({
-      query: ({ name, country_id, token }: Iusers) => ({
+      query: ({
+        token,
+        email,
+        first_name,
+        identification_papers,
+        last_name,
+        phone_number,
+        region_id,
+        secondary_address,
+        user_type,
+      }: Iusers) => ({
         url: ADD_ADMIN_SUPER,
         method: "POST",
         body: {
-          city_name: name,
-          country_id: country_id,
+          email,
+          first_name,
+          identification_papers,
+          last_name,
+          phone_number,
+          region_id,
+          secondary_address,
+          user_type,
         },
         headers: {
           Authorization: `Bearer ${decryptToken(token)}`,
+          "Content-Type": "text/javascript",
         },
       }),
       invalidatesTags: ["users"],
     }),
     editUsers: builder.mutation({
-      query: ({ name, token, id, country_id }: Iusers) => ({
+      query: ({
+        token,
+        user_id,
+        email,
+        first_name,
+        identification_papers,
+        last_name,
+        phone_number,
+        region_id,
+        secondary_address,
+        user_type,
+      }: Iusers) => ({
         url: UPDATE_USERS_SUPER,
         method: "POST",
         body: {
-          city_name: name,
-          city_id: `${id}`,
-          country_id: `${country_id}`,
+          user_id,
+          email,
+          first_name,
+          identification_papers,
+          last_name,
+          phone_number,
+          region_id,
+          secondary_address,
+          user_type,
         },
         headers: {
           Authorization: `Bearer ${decryptToken(token)}`,
+          "Content-Type": "text/javascript",
         },
       }),
       invalidatesTags: (result) =>
         result ? [{ type: "users", id: result.id }] : ["users"],
     }),
     deleteUsers: builder.mutation({
-      query: ({ token, id }: Iusers) => ({
+      query: ({ token, user_id }: Iusers) => ({
         url: DELETE_USERS_SUPER,
         method: "POST",
         body: {
-          city_id: `${id}`,
+          user_id,
         },
         headers: {
           Authorization: `Bearer ${decryptToken(token)}`,
+          "Content-Type": "text/javascript",
         },
       }),
-      invalidatesTags: ({ id }) => [{ type: "users", id }],
+      invalidatesTags: ({ user_id }) => [{ type: "users", user_id }],
     }),
     changeUserStatus: builder.mutation({
-      query: ({ token, id }: Iusers) => ({
+      query: ({ token, user_id }: Iusers) => ({
         url: CHANGE_STATUS_USER_SUPER,
         method: "POST",
         body: {
-          city_id: `${id}`,
+          user_id,
         },
         headers: {
           Authorization: `Bearer ${decryptToken(token)}`,
+          "Content-Type": "text/javascript",
         },
       }),
-      invalidatesTags: ({ id }) => [{ type: "users", id }],
+      invalidatesTags: ({ user_id }) => [{ type: "users", user_id }],
     }),
   }),
 });
