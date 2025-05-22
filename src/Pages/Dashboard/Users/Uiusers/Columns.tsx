@@ -1,8 +1,33 @@
-import { Button, Image, Input, Space, Tag, type TableProps } from "antd";
+import {
+  Button,
+  Dropdown,
+  Image,
+  Input,
+  Space,
+  Tag,
+  type TableProps,
+} from "antd";
 import type { IAllUsers } from "./AllUsersTable";
-import { Search } from "lucide-react";
+import { Edit, MoreHorizontal, Search, TrashIcon } from "lucide-react";
+import type { MenuProps } from "antd/lib";
 
-export const columns: TableProps<IAllUsers>["columns"] = [
+interface ActionColumnProps {
+  onEdit?: (record: IAllUsers) => void;
+  onDelete?: (record: IAllUsers) => void;
+  additionalActions?: Array<{
+    label: string;
+    action: (record: IAllUsers) => void;
+    icon?: React.ReactNode;
+  }>;
+  dropdownProps?: MenuProps;
+}
+
+export const columns = ({
+  onEdit,
+  onDelete,
+  // additionalActions,
+  dropdownProps,
+}: ActionColumnProps): TableProps<IAllUsers>["columns"] => [
   {
     title: "",
     dataIndex: "image_url",
@@ -115,11 +140,43 @@ export const columns: TableProps<IAllUsers>["columns"] = [
   {
     title: "",
     key: "action",
-    render: (_, record) => (
-      <Space size="middle">
-        <a>Invite {record.first_name}</a>
-        <a>Delete</a>
-      </Space>
-    ),
+    render: (_, record) => {
+      const menuItems: MenuProps["items"] = [
+        {
+          key: "edit",
+          label: "Edit",
+          onClick: () => onEdit?.(record),
+          icon: <Edit size={16} />,
+        },
+        {
+          key: "delete",
+          label: "Delete",
+          danger: true,
+          onClick: () => onDelete?.(record),
+          icon: <TrashIcon size={16} />,
+        },
+        // ...(additionalActions?.map((action, index) => ({
+        //   key: `additional-${index}`,
+        //   label: action.label,
+        //   onClick: () => action.action(record),
+        //   icon: action.icon,
+        // })) || []),
+      ];
+
+      return (
+        <Dropdown
+          menu={{ items: menuItems, ...dropdownProps }}
+          trigger={["click"]}
+          placement="bottomRight"
+        >
+          <Button
+            size="small"
+            type="text"
+            icon={<MoreHorizontal size={16} />}
+            onClick={(e) => e.preventDefault()}
+          />
+        </Dropdown>
+      );
+    },
   },
 ];

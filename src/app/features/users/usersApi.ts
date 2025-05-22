@@ -19,7 +19,7 @@ export interface Iusers {
   region_id: string;
   secondary_address: string;
   phone_number: string;
-  identification_papers: File[];
+  identification_papers?: File[];
 }
 export const usersApi = createApi({
   reducerPath: "usersApi",

@@ -1,12 +1,12 @@
-import { Breadcrumb, Button, Table } from "antd";
-
 import { useGetAllUsersQuery } from "../../../../app/features/users/usersApi";
 import { cookieService } from "../../../../Cookies/CookiesServices";
 import SkeletonCustom from "../../../../components/Skeleton";
+import { Breadcrumb, Button, Modal, Table } from "antd";
 import { GrAdd } from "react-icons/gr";
-import { LocationEdit } from "lucide-react";
+import { EditIcon, LocationEdit } from "lucide-react";
 import { columns } from "./Columns";
-
+import { useState } from "react";
+import Formuser from "./Formuser";
 export interface IAllUsers {
   key: React.Key;
   id: string;
@@ -36,7 +36,8 @@ export interface IAllUsers {
 
 const AllUsersTable = () => {
   const token = cookieService.get("auth_token");
-  const { data, isLoading, isError } = useGetAllUsersQuery(`${token}`, {
+  const [IsModelOpen, setIsModelOpen] = useState<boolean>(false);
+  const { data, isLoading } = useGetAllUsersQuery(`${token}`, {
     refetchOnMountOrArgChange: true,
   });
 
@@ -52,14 +53,32 @@ const AllUsersTable = () => {
             Manage users in your team and their roles
           </p>
         </div>
-        <Button type="primary" className="">
+        <Button
+          type="primary"
+          className=""
+          onClick={() => setIsModelOpen(!IsModelOpen)}
+        >
           Add New Users <GrAdd />
         </Button>
       </div>
 
       <Table<IAllUsers>
         rowKey={(record) => record.id}
-        columns={columns}
+        columns={columns({
+          onEdit: (record) => console.log("onEdit", record),
+          onDelete: (record) => console.log("Delete", record),
+          // 1- If need add more actions uncomment this and in column commponents
+          // additionalActions: [
+          //   {
+          //     label: "Edit",
+          //     action: (record) => console.log("Edit", record),
+          //     icon: <EditIcon />,
+          //   },
+          // ],
+          dropdownProps: {
+            style: { minWidth: "150px" },
+          },
+        })}
         key="id"
         dataSource={data?.users}
         size="middle"
@@ -85,6 +104,25 @@ const AllUsersTable = () => {
           rowExpandable: (record) => record.email !== "Not Expandable",
         }}
       />
+      <Modal
+        style={{ top: 30 }}
+        title={
+          <div className="my-4">
+            <h3 className="text-lg font-semibold text-text">Add New User</h3>
+            <p className="text-sm font-normal text-neutral-500">
+              if user type merchant you should upload identification papers.
+            </p>
+          </div>
+        }
+        closable={{ "aria-label": "Custom Close Button" }}
+        open={IsModelOpen}
+        onCancel={() => {
+          setIsModelOpen(!IsModelOpen);
+        }}
+        footer={<></>}
+      >
+        <Formuser />
+      </Modal>
     </>
   );
 };
