@@ -3,6 +3,7 @@ import {
   Dropdown,
   Image,
   Input,
+  Popconfirm,
   Space,
   Tag,
   type TableProps,
@@ -148,11 +149,21 @@ export const columns = ({
           onClick: () => onEdit?.(record),
           icon: <Edit size={16} />,
         },
+
         {
           key: "delete",
-          label: "Delete",
+          label: (
+            <Popconfirm
+              title="Delete the city"
+              description={`Are you sure to delete this ${record.first_name} city?`}
+              onConfirm={(record) => onDelete?.(record)}
+            >
+              <Button danger type="text">
+                Delete
+              </Button>
+            </Popconfirm>
+          ),
           danger: true,
-          onClick: () => onDelete?.(record),
           icon: <TrashIcon size={16} />,
         },
         // ...(additionalActions?.map((action, index) => ({

@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 import {
-  ADD_ADMIN_SUPER,
+  ADD_USERS_SUPER,
   CHANGE_STATUS_USER_SUPER,
   DELETE_USERS_SUPER,
   GET_ALL_USERS_SUPER,
@@ -11,14 +11,14 @@ import { decryptToken } from "../../../Cookies/CryptoServices/crypto";
 
 export interface Iusers {
   token: string;
-  user_type: "merchant" | "user";
-  user_id: string;
-  first_name: string;
-  last_name: string;
-  email: string;
-  region_id: string;
-  secondary_address: string;
-  phone_number: string;
+  user_type?: "merchant" | "user";
+  user_id?: string;
+  first_name?: string;
+  last_name?: string;
+  email?: string;
+  region_id?: string;
+  secondary_address?: string;
+  phone_number?: string;
   identification_papers?: File[];
 }
 export const usersApi = createApi({
@@ -49,7 +49,7 @@ export const usersApi = createApi({
         secondary_address,
         user_type,
       }: Iusers) => ({
-        url: ADD_ADMIN_SUPER,
+        url: ADD_USERS_SUPER,
         method: "POST",
         body: {
           email,
@@ -63,7 +63,6 @@ export const usersApi = createApi({
         },
         headers: {
           Authorization: `Bearer ${decryptToken(token)}`,
-          "Content-Type": "text/javascript",
         },
       }),
       invalidatesTags: ["users"],
@@ -72,7 +71,7 @@ export const usersApi = createApi({
       query: ({
         token,
         user_id,
-        email,
+
         first_name,
         identification_papers,
         last_name,
@@ -85,7 +84,7 @@ export const usersApi = createApi({
         method: "POST",
         body: {
           user_id,
-          email,
+
           first_name,
           identification_papers,
           last_name,
@@ -96,7 +95,6 @@ export const usersApi = createApi({
         },
         headers: {
           Authorization: `Bearer ${decryptToken(token)}`,
-          "Content-Type": "text/javascript",
         },
       }),
       invalidatesTags: (result) =>
@@ -111,7 +109,6 @@ export const usersApi = createApi({
         },
         headers: {
           Authorization: `Bearer ${decryptToken(token)}`,
-          "Content-Type": "text/javascript",
         },
       }),
       invalidatesTags: ({ user_id }) => [{ type: "users", user_id }],
@@ -125,7 +122,6 @@ export const usersApi = createApi({
         },
         headers: {
           Authorization: `Bearer ${decryptToken(token)}`,
-          "Content-Type": "text/javascript",
         },
       }),
       invalidatesTags: ({ user_id }) => [{ type: "users", user_id }],

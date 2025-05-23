@@ -57,7 +57,7 @@ export const DELETE_INFO_CONTACT = "superadmin/dashboard/info-contact/delete";
 
 /* --------------------Super/Users------------------*/
 export const GET_ALL_USERS_SUPER = "superadmin/dashboard/user/all";
-export const ADD_ADMIN_SUPER = "superadmin/dashboard/user/add";
+export const ADD_USERS_SUPER = "superadmin/dashboard/user/add";
 export const UPDATE_USERS_SUPER = "superadmin/dashboard/user/edite";
 export const DELETE_USERS_SUPER = "superadmin/dashboard/user/delete";
 export const CHANGE_STATUS_USER_SUPER =
