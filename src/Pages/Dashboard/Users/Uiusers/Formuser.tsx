@@ -10,7 +10,7 @@ import { useGetAllRegionsQuery } from "../../../../app/features/address/regions/
 import { showMessage } from "../../../../components/Message/Message";
 import type { MessageInstance } from "antd/es/message/interface";
 import { useEffect } from "react";
-import type { IAllUsers } from "./AllUsersTable";
+import type { IAllUsers } from "../../../../types";
 
 export interface IFormUser {
   user_id?: string;

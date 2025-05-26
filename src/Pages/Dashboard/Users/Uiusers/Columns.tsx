@@ -8,9 +8,9 @@ import {
   Tag,
   type TableProps,
 } from "antd";
-import type { IAllUsers } from "./AllUsersTable";
 import { Edit, MoreHorizontal, Search, TrashIcon } from "lucide-react";
 import type { MenuProps } from "antd/lib";
+import type { IAllUsers } from "../../../../types";
 
 interface ActionColumnProps {
   onEdit?: (record: IAllUsers) => void;

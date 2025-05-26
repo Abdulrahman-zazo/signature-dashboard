@@ -1,0 +1,124 @@
+    {
+        "id": 407,
+        "serial_number": "P_2229463",
+        "date": "2025-05-16",
+        "status": "pending",
+        "user": {
+            "id": 2,
+            "first_name": "Zazo",
+            "last_name": "Zazo",
+            "email": "wasem.saleh328@gmail.com",
+            "phone_number": "09807955555",
+            "address": {
+                "country": {
+                    "id": 2,
+                    "name": "مدغشقر"
+                },
+                "city": {
+                    "id": 5,
+                    "name": "جرش"
+                },
+                "region": {
+                    "id": 6,
+                    "name": "region63"
+                },
+                "secondary_address": "1792 شارع انور الترابين بناية رقم 57\nغرب العقبة"
+            },
+            "image_url": "https://code.signaturebackend.abdulrahmanzazo.com/Upload/employee/yrchkv.jpg",
+            "personal_identification_papers": []
+        },
+        "reply": "", // الرد على الطلب  
+        "type": "property",
+        "order": {
+            "id": 219,
+            "serial_number": "P_2637289",
+            "advertisement_id": 219,
+            "is_favorite": false,
+            "area": 300,
+            "price": 100000000,
+            "price_history": {
+                "price": 100000000,
+                "history": []
+            },
+            "publication_type": "rent", // sale , rent 
+            "rent_type": "monthly",
+            "address": {
+                "country": {
+                    "id": 1,
+                    "name": "الحمراء سوريا"
+                },
+                "city": {
+                    "id": 1,
+                    "name": "الحصن2"
+                },
+                "region": {
+                    "id": 3,
+                    "name": "region30 جديدة"
+                },
+                "secondary_address": "test"
+            },
+            "ownership_type": { // نوع الملكية  : حكم محكمة ، طابو أخضر ، وكالة كاتب العدل ، وصاية ، ورثة ، عقد بيع قطعي ، طابو اسهم ، طابو زراعي ، طابو إسكان ، فروغ 
+                "id": 1,
+                "name": "طابو أخضر"
+            },
+            "main_category": { // سكني( فيها sub_category منزل و شقة و مزرعة و فيلا ) ,  (فيها sub_category مكتب و محل تجاري و مستودع معرض صالة )تجاري ، ( فيها sub_category يحتوي على تجارية و صناعيةو سكنية و زراعية )اراضي 
+                "id": 2,
+                "name": "أراضي"
+            },
+            "sub_category": { // تجارية ,  صناعية ، سكنية ، زراعية 
+                "id": 4,
+                "name": "تجارية"
+            },
+            "description": "test description",
+            "age": 3,
+            "map_points": [
+                "55",
+                "66"
+            ],
+            "rooms_number": "-",
+            "directions": [
+                {
+                    "id": 1,
+                    "title": "شرقي"
+                },
+                {
+                    "id": 2,
+                    "title": "غربي"
+                }
+            ],
+            "ownership_papers": [
+                {
+                    "id": 435,
+                    "url": "https://code.signaturebackend.abdulrahmanzazo.com/Upload/properties_ownership_papers/chp9o3.jpg"
+                }
+            ],
+            "features": [ // سور خارجي و مسبح و حديقة 
+                {
+                    "id": 1,
+                    "name": "سور خارجي"
+                },
+                {
+                    "id": 2,
+                    "name": "حديقة"
+                }
+            ],
+            "rating": 0,
+            "detailed_attributes": [
+                {
+                    "key": "permissible construction ratio",
+                    "value": "50"
+                }
+            ],
+            "medias_url": [
+                "https://code.signaturebackend.abdulrahmanzazo.com/Upload/properties_media/k9n3xw.jpg"
+            ],
+            "medias": [
+                {
+                    "id": 429,
+                    "type": "jpg",
+                    "size": 186185,
+                    "url": "https://code.signaturebackend.abdulrahmanzazo.com/Upload/properties_media/k9n3xw.jpg"
+                }
+            ]
+        }
+    },

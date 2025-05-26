@@ -59,7 +59,7 @@ const HeaderDashbord = () => {
               alt={data?.User.first_name}
               className="w-[25px] h-[25px] rounded-full object-cover"
             /> */}
-            <p>
+            <p className="max-[600px]:hidden">
               {data?.User.first_name} {data?.User.last_name}
             </p>
             <div className="w-[30px] h-[30px] rounded-full object-cover bg-primary" />

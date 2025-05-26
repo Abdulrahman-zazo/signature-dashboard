@@ -1,6 +1,6 @@
 import { Breadcrumb } from "antd";
 import { LocationEdit } from "lucide-react";
-import type { IAllUsers } from "../AllUsersTable";
+import type { IAllUsers } from "../../../../../types";
 
 export const ExpandedRow = (record: IAllUsers) => (
   <div className="my-4 ">

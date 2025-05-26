@@ -10,10 +10,12 @@ import { Outlet } from "react-router-dom";
 
 import { siderStyle } from "../../components/ExtraStyles";
 import { ItemsComponent } from "./sideBar";
+import { useDispatch } from "react-redux";
+import { collapsedAction } from "../../app/features/uiSlice/uiSlice";
 
 const Dashboard = () => {
   const { collapsed } = useAppSelector((state) => state.uiSlice);
-
+  const dispatch = useDispatch();
   return (
     <>
       <Layout style={{ minHeight: "100vh" }}>
@@ -26,6 +28,9 @@ const Dashboard = () => {
           }}
           collapsible
           collapsed={collapsed}
+          onCollapse={() => dispatch(collapsedAction())} // <-- لتحديث الحالة عند الانهيار تلقائيًا
+          breakpoint="lg" // 💡 يمكن تغييره إلى md, sm حسب الحاجة
+          collapsedWidth="0" // ⬅️ اجعله يختفي تمامًا على الشاشات الصغيرة
         >
           <div className="flex items-center justify-center mx-auto my-4">
             {collapsed ? (

@@ -8,7 +8,7 @@ export const CHANGE_PASSWORD = "auth/dashboard/verify_reset_password"; // set em
 export const RESEND_CODE = "auth/dashboard/resend_verify_reset_password";
 
 /* --------------------Order------------------*/
-export const GET_ORDER = "orders";
+export const GET_ORDER = "orders/dashboard";
 export const GET_ORDER_BY_CLASSIFICATION = "orders/by-classification";
 export const ACCEPT_ORDER = "orders/accept";
 export const CANCEL_ORDER = "orders/cancel";
@@ -158,6 +158,13 @@ export const GET_DIRECTIONS = "properties/dashboard/directions/all";
 export const ADD_DIRECTIONS = "properties/dashboard/directions/add";
 export const UPDATE_DIRECTIONS = "properties/dashboard/directions/update";
 export const DELETE_DIRECTIONS = "properties/dashboard/directions/delete";
+/* ------------------OwnerShip Types------------------ */
+export const GET_OWNERSHIP_TYPES = "properties/dashboard/ownership_types/all";
+export const ADD_OWNERSHIP_TYPES = "properties/dashboard/ownership_types/add";
+export const UPDATE_OWNERSHIP_TYPES =
+  "properties/dashboard/ownership_types/update";
+export const DELETE_OWNERSHIP_TYPES =
+  "properties/dashboard/ownership_types/delete";
 
 /* --------------------
 Services/ ------------------*/

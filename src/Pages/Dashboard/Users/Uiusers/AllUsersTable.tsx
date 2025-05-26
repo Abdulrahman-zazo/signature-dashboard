@@ -10,33 +10,7 @@ import { columns } from "./Columns";
 import { useState } from "react";
 import Formuser from "./Formuser";
 import { ExpandedRow } from "./extraUi/expandedRowRender";
-export interface IAllUsers {
-  key: React.Key;
-  id: string;
-  address: {
-    country: {
-      name: string;
-    };
-
-    city: {
-      name: string;
-    };
-    region: {
-      id: string;
-      name: string;
-    };
-    secondary_address: string;
-  };
-  user_type: "merchant" | "user";
-  first_name: string;
-  last_name: string;
-  email: string;
-  image_url: string;
-  phone_number: string;
-  status: number;
-  personal_identification_papers: File[];
-  roles: string[];
-}
+import type { IAllUsers } from "../../../../types";
 
 const AllUsersTable = () => {
   const token = cookieService.get("auth_token");
